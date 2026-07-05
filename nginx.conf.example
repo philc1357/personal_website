@@ -1,0 +1,49 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# nginx – Beispielconfig für das statische Export-Verzeichnis (out/)
+# Kopiere out/ auf den Server (z.B. /var/www/personal-website) und passe
+# server_name, Pfade sowie die TLS-Zertifikate an.
+# Security-Header werden hier gesetzt (Static Export -> Next headers() greift nicht).
+# ─────────────────────────────────────────────────────────────────────────────
+
+# 1) HTTP -> HTTPS erzwingen
+server {
+    listen 80;
+    listen [::]:80;
+    server_name example.com www.example.com;
+    return 301 https://$host$request_uri;
+}
+
+# 2) HTTPS – statische Auslieferung + Security-Header
+server {
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+    server_name example.com www.example.com;
+
+    root /var/www/personal-website/out;
+    index index.html;
+
+    # TLS (Pfade anpassen, z.B. via certbot/Let's Encrypt)
+    ssl_certificate     /etc/letsencrypt/live/example.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/example.com/privkey.pem;
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_prefer_server_ciphers on;
+
+    # ── Security-Header ──────────────────────────────────────────────────────
+    add_header Content-Security-Policy "default-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; font-src 'self'; object-src 'none'; upgrade-insecure-requests" always;
+    add_header Strict-Transport-Security "max-age=63072000; includeSubDomains; preload" always;
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header X-Frame-Options "DENY" always;
+    add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+    add_header Permissions-Policy "camera=(), microphone=(), geolocation=(), interest-cohort=()" always;
+
+    # ── Statisches Routing (trailingSlash: true -> Verzeichnis-index.html) ────
+    location / {
+        try_files $uri $uri/ $uri.html /404.html;
+    }
+
+    # Optional: langes Caching für gehashte Assets
+    location /_next/static/ {
+        expires 1y;
+        add_header Cache-Control "public, immutable";
+    }
+}

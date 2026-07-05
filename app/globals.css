@@ -1,0 +1,65 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   Tailwind Base/Components/Utilities
+   Tailwind liefert hier NUR Layout-Utilities. Die Optik (Farben, Typografie,
+   Schatten, Rundungen) kommt aus den Design-Tokens weiter unten + CSS Modules.
+   ───────────────────────────────────────────────────────────────────────────── */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Design-Tokens (Gerüst)
+   Zentrale Custom-Properties als "Single Source of Truth" für die spätere Optik.
+   Werte sind bewusst neutrale Startwerte – die eigentliche Gestaltung (Farbwelt,
+   Typo-Skala) wird in einem späteren Schritt festgelegt.
+   ───────────────────────────────────────────────────────────────────────────── */
+:root {
+  /* Farben – Grundflächen & Text */
+  --color-bg: #ffffff;
+  --color-surface: #f5f5f5;
+  --color-text: #111111;
+  --color-text-muted: #555555;
+  --color-border: #e2e2e2;
+
+  /* Akzentfarbe (Platzhalter – wird später definiert) */
+  --color-accent: #111111;
+  --color-accent-contrast: #ffffff;
+
+  /* Typografie – Font-Familien werden in layout.tsx via next/font gesetzt */
+  --font-sans: var(--font-sans-fallback), system-ui, sans-serif;
+  --font-mono: ui-monospace, "SFMono-Regular", "Menlo", monospace;
+
+  /* Typo-Skala */
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.25rem;
+  --text-xl: 1.75rem;
+  --text-2xl: 2.5rem;
+  --text-3xl: 3.5rem;
+
+  /* Radien */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+
+  /* Schatten */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+
+  /* Spacing-Rhythmus für Sektionen */
+  --space-section: clamp(4rem, 10vw, 8rem);
+  --container-max: 1200px;
+}
+
+/* Grund-Reset / Basis-Anmutung */
+html {
+  color-scheme: light;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
