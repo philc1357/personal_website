@@ -29,6 +29,11 @@ npm run build   # erzeugt out/
 - **Vercel**: Repo verbinden; Security-Header/Redirects kommen aus `vercel.json`.
 - **VPS/nginx**: `out/` auf den Server kopieren; `nginx.conf.example` als Vorlage
   (Security-Header, HTTP→HTTPS-Redirect, HSTS) anpassen und einbinden.
+- **GitHub Pages**: Automatisch via Workflow `.github/workflows/deploy.yml` bei jedem
+  Push auf `main`. Einmalig aktivieren: **Settings → Pages → Source: „GitHub Actions“**.
+  URL: `https://philc1357.github.io/personal_website/`. Der Pages-Build läuft mit
+  `GITHUB_PAGES=true` (setzt `basePath=/personal_website`); Vercel/VPS bauen ohne diese
+  Env-Var weiterhin am Root.
 
 ## Wichtige Regeln (siehe `CLAUDE.md`)
 - Nur statisch – keine Server Actions / dynamischen API-Routen.
