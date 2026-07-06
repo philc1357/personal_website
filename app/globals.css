@@ -21,6 +21,9 @@
   --color-text-muted: #555555;
   --color-border: #e2e2e2;
 
+  /* Dunkle Grundfläche hinter den animierten Beams (components/ui/beams-background.tsx) – neutral-950 */
+  --color-bg-dark: #0a0a0a;
+
   /* Akzentfarbe (Platzhalter – wird später definiert) */
   --color-accent: #111111;
   --color-accent-contrast: #ffffff;

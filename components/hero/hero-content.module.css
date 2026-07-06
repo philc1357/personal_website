@@ -1,0 +1,14 @@
+.root {
+  text-align: center;
+}
+
+.heading {
+  color: var(--color-accent-contrast);
+  font-size: var(--text-3xl);
+}
+
+.subheading {
+  color: var(--color-accent-contrast);
+  opacity: 0.85;
+  font-size: var(--text-lg);
+}

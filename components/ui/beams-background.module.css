@@ -1,0 +1,15 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   BeamsBackground – Optik (Farben)
+   Tailwind liefert für diese Komponente nur Layout-Utilities; die Farben kommen
+   ausschließlich aus diesen Klassen + Design-Tokens (siehe app/globals.css).
+   ───────────────────────────────────────────────────────────────────────────── */
+
+/* Dunkle Grundfläche der gesamten Backdrop */
+.root {
+  background: var(--color-bg-dark);
+}
+
+/* Halbtransparente Overlay-Fläche (entspricht neutral-950 @ 5% Deckkraft) */
+.overlay {
+  background: rgba(10, 10, 10, 0.05);
+}

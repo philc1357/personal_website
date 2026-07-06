@@ -1,14 +1,15 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Michroma } from "next/font/google";
 import "./globals.css";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Schriften via next/font – werden zur Build-Zeit heruntergeladen und lokal
 // self-hosted ausgeliefert (kein externer Runtime-Call -> DSGVO-konform).
-// Inter ist ein neutraler Platzhalter; die finale Typografie folgt später.
+// Michroma gibt es nur in Schriftschnitt 400 (kein Bold/Italic).
 // ─────────────────────────────────────────────────────────────────────────────
-const inter = Inter({
+const font = Michroma({
   subsets: ["latin"],
+  weight: "400",
   display: "swap",
   variable: "--font-sans-fallback",
 });
@@ -24,7 +25,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="de" className={inter.variable}>
+    <html lang="de" className={font.variable}>
       <body>{children}</body>
     </html>
   );
