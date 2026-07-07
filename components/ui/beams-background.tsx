@@ -34,7 +34,7 @@ export function BeamsBackground({
         >
             {/* WebGL-Hintergrund (DarkVeil) in vollflächigem Container */}
             <div className="absolute inset-0">
-                <DarkVeil />
+                <DarkVeil hueShift={35} />
             </div>
 
             {/* Grid-Raster über DarkVeil – beide animieren gemeinsam */}

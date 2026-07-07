@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Michroma, Karla, JetBrains_Mono } from "next/font/google";
 import { SiteHeader } from "./includes/site-header";
-import { CursorEffects } from "@/components/ui/cursor-effects";
 import "./globals.css";
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -50,10 +49,6 @@ export default function RootLayout({
       <body>
         <SiteHeader />
         {children}
-        {/* Globale Cursor-Effekte (nur Desktop/Maus, nur über dunklen Bereichen).
-            Anpassung über den CURSOR_CONFIG-Block in cursor-effects.tsx.
-            Temporär deaktiviert – einfach wieder einkommentieren zum Reaktivieren. */}
-        {/* <CursorEffects /> */}
       </body>
     </html>
   );
