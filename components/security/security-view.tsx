@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "motion/react";
 import { ChevronDown } from "lucide-react";
 import { BeamsCanvas } from "@/components/ui/beams-canvas";
 import { cn } from "@/lib/utils";
@@ -16,22 +16,10 @@ import styles from "./security.module.css";
 //   2. 100vh-Hero mit Einstiegstext (ohne Buttons), der beim Scrollen sanft
 //      nach oben wandert und ausblendet.
 //   3. Fakten-Sektionen (Überblick aus sicherheitspunkte.php).
-// Barrierefreiheit: Bei prefers-reduced-motion werden alle scroll-gekoppelten
-// Transforms deaktiviert (Repo-Konvention, vgl. site-header.tsx).
 // ─────────────────────────────────────────────────────────────────────────────
 
 export function SecurityView() {
-    const prefersReducedMotion = useReducedMotion();
     const heroRef = useRef<HTMLElement>(null);
-
-    // Erst nach dem Mount auf reduced-motion umschalten. Beim ersten Render
-    // (Server + Client-Hydration) sind die Motion-Styles immer aktiv – sonst
-    // weicht das serverseitige HTML vom Client ab (Hydration-Mismatch), weil
-    // useReducedMotion() auf dem Server null, auf dem Client aber sofort true
-    // liefern kann.
-    const [mounted, setMounted] = useState(false);
-    useEffect(() => setMounted(true), []);
-    const disableMotion = mounted && prefersReducedMotion;
 
     // Fortschritt 0 → 1, während der Hero aus dem Viewport scrollt
     // (viewport-unabhängig durch offset relativ zur Hero-Section).
@@ -52,7 +40,7 @@ export function SecurityView() {
             <div className={styles.fixedBackdrop} aria-hidden="true">
                 <motion.div
                     className="absolute inset-0"
-                    style={disableMotion ? undefined : { opacity: beamsOpacity }}
+                    style={{ opacity: beamsOpacity }}
                 >
                     <BeamsCanvas intensity="strong" />
                 </motion.div>
@@ -68,11 +56,7 @@ export function SecurityView() {
             >
                 <motion.div
                     className={styles.heroInner}
-                    style={
-                        disableMotion
-                            ? undefined
-                            : { opacity: textOpacity, y: textY }
-                    }
+                    style={{ opacity: textOpacity, y: textY }}
                 >
                     <h1 className={styles.heroHeading}>IT-Sicherheit für Ihr Unternehmen</h1>
                     <p className={styles.heroSubheading}>

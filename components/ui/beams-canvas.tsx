@@ -96,14 +96,14 @@ export function BeamsCanvas({
 
         // ─────────────────────────────────────────────────────────────────────
         // Konfiguration je nach Gerät.
-        // Desktop: exakt die bisherigen Werte (Positionierung in Geräte-Pixeln,
-        //          30 Beams, 3 Spalten) → Look unverändert. Der Blur läuft nur
-        //          noch als CSS-Filter auf dem Canvas-Element (siehe JSX unten),
-        //          nicht mehr zusätzlich pro Frame via ctx.filter – das war auf
-        //          Mobile die teuerste Operation im Animationsloop.
-        // Mobil:   Positionierung in CSS-Pixeln (behebt den dpr-Fehler, der die
-        //          Beams sonst aus dem Bild schiebt) + weniger/klarere Streifen +
-        //          gedeckelte Backing-Store-Auflösung (effectiveDpr).
+        // Positionierung IMMER in CSS-Pixeln (window.innerWidth/Height). Der
+        // Zeichen-Kontext ist bereits per ctx.scale(dpr) skaliert – würde man in
+        // Geräte-Pixeln (canvas.width = innerWidth*dpr) platzieren, landeten die
+        // Beams auf HiDPI-/Retina-Displays (dpr > 1) außerhalb des sichtbaren
+        // Bereichs. Der Blur läuft nur als CSS-Filter auf dem Canvas-Element
+        // (siehe JSX unten), nicht pro Frame via ctx.filter.
+        // Desktop:  30 Beams, 3 Spalten. Mobil: weniger/klarere Streifen (12/2)
+        //           + gedeckelte Backing-Store-Auflösung (effectiveDpr).
         // logicalW/logicalH sind die Maße, in denen die Beams platziert werden.
         // ─────────────────────────────────────────────────────────────────────
         let config = {
@@ -124,19 +124,12 @@ export function BeamsCanvas({
             canvas.style.height = `${window.innerHeight}px`;
             ctx.scale(effectiveDpr, effectiveDpr);
 
-            config = isMobile
-                ? {
-                      logicalW: window.innerWidth,
-                      logicalH: window.innerHeight,
-                      beamCount: 12,
-                      columns: 2,
-                  }
-                : {
-                      logicalW: canvas.width,
-                      logicalH: canvas.height,
-                      beamCount: MINIMUM_BEAMS * 1.5,
-                      columns: 3,
-                  };
+            config = {
+                logicalW: window.innerWidth,
+                logicalH: window.innerHeight,
+                beamCount: isMobile ? 12 : MINIMUM_BEAMS * 1.5,
+                columns: isMobile ? 2 : 3,
+            };
 
             beamsRef.current = Array.from({ length: config.beamCount }, () =>
                 createBeam(config.logicalW, config.logicalH)

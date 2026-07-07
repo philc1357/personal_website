@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 import {
   Code2,
   Home,
@@ -29,7 +29,6 @@ import styles from "./site-header.module.css";
 //  - Interne Ziele nutzen next/link, der Kontakt-Punkt einen mailto:-Link.
 //  - Barrierefreiheit: aria-label pro Punkt, aria-expanded am Toggle, Schließen
 //    per Escape und nach Klick auf einen Punkt.
-//  - prefers-reduced-motion: Bewegung wird auf ein reines Ein-/Ausblenden reduziert.
 // ─────────────────────────────────────────────────────────────────────────────
 
 type MenuItem = {
@@ -58,7 +57,6 @@ const ITEM_SPACING = 56;
 
 export function SiteHeader() {
   const [isOpen, setIsOpen] = useState(false);
-  const reduceMotion = useReducedMotion();
   const navRef = useRef<HTMLElement>(null);
 
   // Menü schließen bei Escape oder Klick außerhalb des Menüs.
@@ -88,8 +86,6 @@ export function SiteHeader() {
           {isOpen &&
             MENU_ITEMS.map((item, index) => {
               const Icon = item.icon;
-              // Zielposition IMMER setzen – bei Reduced-Motion entfällt nur die
-              // Bewegung (initial = Endposition), nicht der Versatz selbst.
               // Menü fährt nach links aus -> negativer X-Versatz. Reihenfolge
               // gespiegelt: erstes Item (Home) ganz links, letztes neben dem Toggle.
               const x = -((MENU_ITEMS.length - index) * ITEM_SPACING);
@@ -104,20 +100,20 @@ export function SiteHeader() {
                 <motion.div
                   key={item.label}
                   className={styles.item}
-                  initial={{ x: reduceMotion ? x : 0, opacity: 0 }}
+                  initial={{ x: 0, opacity: 0 }}
                   animate={{ x, opacity: 1 }}
                   exit={{
-                    x: reduceMotion ? x : 0,
+                    x: 0,
                     opacity: 0,
                     transition: {
-                      delay: reduceMotion ? 0 : (MENU_ITEMS.length - index) * 0.05,
+                      delay: (MENU_ITEMS.length - index) * 0.05,
                       duration: 0.4,
                       type: "spring",
                       bounce: 0,
                     },
                   }}
                   transition={{
-                    delay: reduceMotion ? 0 : index * 0.05,
+                    delay: index * 0.05,
                     duration: 0.4,
                     type: "spring",
                     bounce: 0,
