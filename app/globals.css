@@ -52,6 +52,16 @@
   /* Spacing-Rhythmus für Sektionen */
   --space-section: clamp(4rem, 10vw, 8rem);
   --container-max: 1200px;
+
+  /* Z-Index-Ebenen */
+  --z-header: 50;
+
+  /* Frosted-Glas-Flächen (Header-Menü, app/includes/site-header.module.css).
+     Bewusst überwiegend deckend, damit der Gooey-Merge-Filter greift. */
+  --color-glass: rgba(245, 245, 248, 0.9);
+  --color-glass-hover: rgba(255, 255, 255, 0.98);
+  --color-glass-border: rgba(255, 255, 255, 0.6);
+  --color-glass-border-hover: rgba(255, 255, 255, 0.85);
 }
 
 /* Grund-Reset / Basis-Anmutung */

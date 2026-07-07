@@ -1,0 +1,82 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   Site-Header – Optik des transparenten Gooey-Menüs.
+   Farben, Blur, Rundung und Glas-Anmutung kommen aus Design-Tokens (globals.css)
+   bzw. hier lokal – NICHT aus Tailwind (Projektregel: Tailwind = nur Layout).
+   ───────────────────────────────────────────────────────────────────────────── */
+
+/* Der Header selbst ist komplett transparent und liegt fixiert oben rechts.
+   pointer-events: none, damit der leere Header-Bereich den Hero nicht blockt –
+   nur das Menü (.menu) fängt Klicks wieder ab. */
+.header {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: var(--z-header, 50);
+  padding: 1rem;
+  pointer-events: none;
+  background: transparent;
+}
+
+/* Menü-Wrapper: Referenz für die absolut positionierten Items + Goo-Filter.
+   pointer-events: auto reaktiviert die Interaktion nur für das Menü. */
+.menu {
+  position: relative;
+  pointer-events: auto;
+}
+
+/* Transparenter Kreis – gemeinsame Optik für Toggle-Button und Menüpunkte:
+   keine Füllung, nur weißer Rand und weißes Icon. Beim Hover eine dezente
+   Füllung als visuelles Feedback. */
+.circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 999px;
+  color: var(--color-accent-contrast);
+  background: transparent;
+  border: 1px solid var(--color-glass-border, rgba(255, 255, 255, 0.8));
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+/* Hover: Invert – weiß gefüllter Kreis mit schwarzem Icon. */
+.circle:hover {
+  color: var(--color-accent);
+  background: var(--color-glass-hover, rgba(255, 255, 255, 0.95));
+  border-color: var(--color-glass-border-hover, rgba(255, 255, 255, 1));
+}
+
+.circle:focus-visible {
+  outline: 2px solid var(--color-accent-contrast);
+  outline-offset: 2px;
+}
+
+/* Toggle-Button liegt über den ausfahrenden Items (relative + z-index). */
+.toggle {
+  position: relative;
+  z-index: 1;
+}
+
+/* Die einzelnen Menüpunkte fahren aus dem Toggle heraus und liegen absolut
+   darunter (die y-Verschiebung übernimmt Framer/Motion). */
+.item {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.icon {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+/* Reduced-Motion: Feinschliff – der Blur-Filter bleibt, aber der Kreis wird
+   ohne Übergänge geschaltet. Die Framer-Animationen werden in der Komponente
+   selbst reduziert. */
+@media (prefers-reduced-motion: reduce) {
+  .circle {
+    transition: none;
+  }
+}

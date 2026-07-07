@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Michroma } from "next/font/google";
+import { SiteHeader } from "./includes/site-header";
 import "./globals.css";
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -26,7 +27,10 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="de" className={font.variable}>
-      <body>{children}</body>
+      <body>
+        <SiteHeader />
+        {children}
+      </body>
     </html>
   );
 }
