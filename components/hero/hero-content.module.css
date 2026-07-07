@@ -12,7 +12,7 @@
   opacity: 0.9;
   /* Skaliert mit der Viewport-Breite, damit die längste Phrase
      ("Full-Stack-Webentwicklung") auf schmalen Handys nicht umbricht/überläuft. */
-  font-size: clamp(1.1rem, 5.5vw, var(--text-2xl));
+  font-size: clamp(1.2rem, 6vw, calc(var(--text-2xl) + 0.25rem));
   /* Feste Zeilenhöhe verhindert Layout-Sprünge (CLS) beim Phrasen-Wechsel. */
   min-height: calc(1.3em);
   line-height: 1.3;
