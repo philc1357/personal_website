@@ -64,13 +64,14 @@ export function BeamsCanvas({
     // Canvas-Animation (Positionierung/Anzahl/Blur) als auch die Inline-Blur-
     // Werte im JSX. Auf dem Desktop (≥ 768px) bleibt alles wie bisher.
     // ─────────────────────────────────────────────────────────────────────────
-    const [isMobile, setIsMobile] = useState<boolean>(() => {
-        if (typeof window === "undefined") return false;
-        return window.matchMedia("(max-width: 767px)").matches;
-    });
+    // Startwert immer false (= Server-Render), damit der erste Client-Render
+    // exakt zum SSR-Output passt. Der echte Wert wird erst im Effect nach dem
+    // Mount gesetzt (verhindert Hydration-Mismatch bei mobilem Erstaufruf).
+    const [isMobile, setIsMobile] = useState(false);
 
     useEffect(() => {
         const mq = window.matchMedia("(max-width: 767px)");
+        setIsMobile(mq.matches);
         const onChange = (e: MediaQueryListEvent) => setIsMobile(e.matches);
         mq.addEventListener("change", onChange);
         return () => mq.removeEventListener("change", onChange);

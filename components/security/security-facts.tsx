@@ -99,7 +99,7 @@ export function SecurityFacts() {
                     </p>
                     <div className={styles.statGrid}>
                         {keyStats.map((s) => (
-                            <div key={s.source} className={styles.statTile}>
+                            <div key={s.source} className={styles.statTile} data-cursor-card>
                                 <div className={styles.statValue}>{s.value}</div>
                                 <div className={styles.statText}>{s.text}</div>
                                 <div className={styles.statSource}>Quelle: {s.source}</div>
@@ -180,6 +180,7 @@ export function SecurityFacts() {
                                     styles.owaspCard,
                                     o.focus && styles.owaspCardFocus
                                 )}
+                                data-cursor-card
                             >
                                 <span className={styles.owaspRank}>{o.rank}</span>
                                 <div>
@@ -210,7 +211,7 @@ export function SecurityFacts() {
                     </h2>
                     <div className={styles.whyGrid}>
                         {whyVulnerable.map((w) => (
-                            <div key={w.title} className={styles.whyCard}>
+                            <div key={w.title} className={styles.whyCard} data-cursor-card>
                                 <h3 className={styles.whyTitle}>{w.title}</h3>
                                 <p className={styles.whyText}>{w.text}</p>
                             </div>

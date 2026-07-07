@@ -1,0 +1,22 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   AnimatedGridPattern – Optik (Farben)
+   Tailwind liefert für diese Komponente nur Layout-Utilities; die Farben kommen
+   ausschließlich aus diesen Klassen + Design-Tokens (siehe app/globals.css).
+   Weiße Rasterlinien (dezent) + hell-grau aufleuchtende Kacheln.
+   ───────────────────────────────────────────────────────────────────────────── */
+
+/* Feine weiße Rasterlinien – skewY() statt rotate(): vertikale Linien bleiben
+   dadurch exakt senkrecht, nur die horizontalen Linien werden leicht geneigt.
+   scale() als Überstand, damit nach der Scherung keine Lücken an den Ecken
+   entstehen (Messung der Fläche via ResizeObserver bleibt unbeeinflusst,
+   da CSS-Transforms die Layout-Box nicht verändern). */
+.grid {
+  stroke: rgba(255, 255, 255, 0.1);
+  transform: skewY(6deg) scale(1.2);
+  transform-origin: center;
+}
+
+/* Aufleuchtende Kacheln in hellem Grau */
+.square {
+  fill: #e2e8f0;
+}

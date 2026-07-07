@@ -90,3 +90,16 @@ h5,
 h6 {
   font-family: var(--font-heading);
 }
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Custom-Cursor: System-Cursor ausblenden
+   Wird von components/ui/cursor-effects.tsx nur dann gesetzt, wenn der Custom
+   Cursor aktiv ist UND sich die Maus über einer dunklen Zone befindet. Muss
+   global greifen (auch auf Kind-Elemente mit eigenem cursor:pointer), daher hier
+   statt im CSS-Modul. Beim Verlassen dunkler Zonen wird die Klasse entfernt →
+   der native Cursor kehrt zurück.
+   ───────────────────────────────────────────────────────────────────────────── */
+html.cursor-hidden,
+html.cursor-hidden * {
+  cursor: none !important;
+}

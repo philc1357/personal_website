@@ -2,14 +2,16 @@
 
 import { cn } from "@/lib/utils";
 import { BeamsCanvas } from "./beams-canvas";
+import { AnimatedGridPattern } from "./animated-grid-pattern";
 import styles from "./beams-background.module.css";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // BeamsBackground – Vollbild-Hülle für den Startseiten-Hero
-// Dunkle Grundfläche + animierte Beams (via BeamsCanvas) + zentrierter Inhalt.
-// Die eigentliche Canvas-/Overlay-Animation lebt in BeamsCanvas, damit sie auch
-// an anderer Stelle (z. B. als scroll-ausblendender Hintergrund) genutzt werden
-// kann. Das gerenderte Erscheinungsbild bleibt identisch zur bisherigen Version.
+// Dunkle Grundfläche + animiertes Grid-Raster (hinten) + animierte Beams
+// (via BeamsCanvas) + zentrierter Inhalt. Grid und Beams laufen gemeinsam und
+// geben dem Hero Tiefe; das Grid bleibt dezent, damit der Text lesbar bleibt.
+// Die Canvas-/Overlay-Animation lebt in BeamsCanvas, damit sie auch an anderer
+// Stelle (z. B. als scroll-ausblendender Hintergrund auf /security) nutzbar ist.
 // ─────────────────────────────────────────────────────────────────────────────
 
 interface BeamsBackgroundProps {
@@ -30,7 +32,12 @@ export function BeamsBackground({
                 "relative min-h-screen w-full overflow-hidden",
                 className
             )}
+            // Dunkle Zone: aktiviert die Cursor-Effekte (components/ui/cursor-effects.tsx)
+            data-cursor-dark
         >
+            {/* Grid-Raster hinter den Beams – beide animieren gemeinsam */}
+            <AnimatedGridPattern maxOpacity={0.3} numSquares={48} />
+
             <BeamsCanvas intensity={intensity} />
 
             <div className="relative z-10 flex min-h-screen w-full items-center justify-center">
