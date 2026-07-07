@@ -97,9 +97,13 @@ export function BeamsCanvas({
         // ─────────────────────────────────────────────────────────────────────
         // Konfiguration je nach Gerät.
         // Desktop: exakt die bisherigen Werte (Positionierung in Geräte-Pixeln,
-        //          30 Beams, 3 Spalten, Blur 35px) → Look unverändert.
+        //          30 Beams, 3 Spalten) → Look unverändert. Der Blur läuft nur
+        //          noch als CSS-Filter auf dem Canvas-Element (siehe JSX unten),
+        //          nicht mehr zusätzlich pro Frame via ctx.filter – das war auf
+        //          Mobile die teuerste Operation im Animationsloop.
         // Mobil:   Positionierung in CSS-Pixeln (behebt den dpr-Fehler, der die
-        //          Beams sonst aus dem Bild schiebt) + weniger/klarere Streifen.
+        //          Beams sonst aus dem Bild schiebt) + weniger/klarere Streifen +
+        //          gedeckelte Backing-Store-Auflösung (effectiveDpr).
         // logicalW/logicalH sind die Maße, in denen die Beams platziert werden.
         // ─────────────────────────────────────────────────────────────────────
         let config = {
@@ -107,16 +111,18 @@ export function BeamsCanvas({
             logicalH: 0,
             beamCount: 0,
             columns: 3,
-            canvasBlur: 35,
         };
 
         const updateCanvasSize = () => {
             const dpr = window.devicePixelRatio || 1;
-            canvas.width = window.innerWidth * dpr;
-            canvas.height = window.innerHeight * dpr;
+            // Auf Mobile die Backing-Store-Auflösung deckeln (dpr oft 2-3) –
+            // sonst muss der teure Blur auf unnötig vielen Pixeln laufen.
+            const effectiveDpr = isMobile ? Math.min(dpr, 1.5) : dpr;
+            canvas.width = window.innerWidth * effectiveDpr;
+            canvas.height = window.innerHeight * effectiveDpr;
             canvas.style.width = `${window.innerWidth}px`;
             canvas.style.height = `${window.innerHeight}px`;
-            ctx.scale(dpr, dpr);
+            ctx.scale(effectiveDpr, effectiveDpr);
 
             config = isMobile
                 ? {
@@ -124,14 +130,12 @@ export function BeamsCanvas({
                       logicalH: window.innerHeight,
                       beamCount: 12,
                       columns: 2,
-                      canvasBlur: 18,
                   }
                 : {
                       logicalW: canvas.width,
                       logicalH: canvas.height,
                       beamCount: MINIMUM_BEAMS * 1.5,
                       columns: 3,
-                      canvasBlur: 35,
                   };
 
             beamsRef.current = Array.from({ length: config.beamCount }, () =>
@@ -203,7 +207,6 @@ export function BeamsCanvas({
             if (!canvas || !ctx) return;
 
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.filter = `blur(${config.canvasBlur}px)`;
 
             const totalBeams = beamsRef.current.length;
             beamsRef.current.forEach((beam, index) => {
@@ -236,7 +239,7 @@ export function BeamsCanvas({
             <canvas
                 ref={canvasRef}
                 className="absolute inset-0"
-                style={{ filter: isMobile ? "blur(8px)" : "blur(15px)" }}
+                style={{ filter: isMobile ? "blur(10px)" : "blur(20px)" }}
             />
 
             <motion.div
@@ -250,7 +253,7 @@ export function BeamsCanvas({
                     repeat: Number.POSITIVE_INFINITY,
                 }}
                 style={{
-                    backdropFilter: isMobile ? "blur(30px)" : "blur(50px)",
+                    backdropFilter: isMobile ? undefined : "blur(50px)",
                 }}
             />
         </div>
