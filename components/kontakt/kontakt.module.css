@@ -1,0 +1,152 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   Kontakt-Seite – Optik (nur Farben/Typografie/Abstände; Layout via Tailwind).
+   Dunkles Theme auf reinem Schwarz, zentriertes Formular über animiertem Grid.
+   Alle Farben aus lokalen Custom-Properties bzw. globalen Tokens (globals.css).
+   ───────────────────────────────────────────────────────────────────────────── */
+
+.view {
+  /* Lokale Farb-Token (scoped) */
+  --k-text: var(--color-accent-contrast);
+  --k-text-muted: rgba(255, 255, 255, 0.68);
+  --k-text-faint: rgba(255, 255, 255, 0.42);
+  --k-surface: rgba(255, 255, 255, 0.04);
+  --k-border: rgba(255, 255, 255, 0.1);
+  --k-focus: #38bdf8; /* Cyan-Akzent (konsistent mit der Security-Seite) */
+  --k-danger: #ef4444;
+
+  /* Feld-Token für die UI-Primitive (input/textarea/label) */
+  --field-bg: rgba(255, 255, 255, 0.05);
+  --field-border: rgba(255, 255, 255, 0.14);
+  --field-text: var(--color-accent-contrast);
+  --field-placeholder: rgba(255, 255, 255, 0.4);
+  --field-focus: var(--k-focus);
+  --field-danger: var(--k-danger);
+  --field-label: var(--color-accent-contrast);
+
+  position: relative;
+  min-height: 100vh;
+  background: var(--color-bg-dark);
+}
+
+/* ── Fixer Hintergrund: schwarze Fläche mit animiertem Grid ─────────────────── */
+.fixedBackdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background: var(--color-bg-dark);
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* Grid zum Zentrum hin ausblenden, damit die Formular-Karte im Fokus bleibt */
+.gridMask {
+  position: absolute;
+  inset: 0;
+  -webkit-mask-image: radial-gradient(
+    ellipse at center,
+    transparent 0%,
+    rgba(0, 0, 0, 0.4) 42%,
+    #000 72%
+  );
+  mask-image: radial-gradient(
+    ellipse at center,
+    transparent 0%,
+    rgba(0, 0, 0, 0.4) 42%,
+    #000 72%
+  );
+}
+
+/* ── Zentrierte Formular-Karte ──────────────────────────────────────────────── */
+.card {
+  width: 100%;
+  max-width: 32rem;
+  background: var(--k-surface);
+  border: 1px solid var(--k-border);
+  border-radius: var(--radius-lg);
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+  box-shadow: var(--shadow-md);
+  backdrop-filter: blur(8px);
+}
+
+.heading {
+  color: var(--k-text);
+  font-size: clamp(1.75rem, 6vw, var(--text-2xl));
+  line-height: 1.1;
+  text-align: center;
+  overflow-wrap: break-word;
+}
+
+.lead {
+  color: var(--k-text-muted);
+  font-size: var(--text-base);
+  line-height: 1.55;
+  text-align: center;
+  margin-top: 0.75rem;
+  margin-bottom: 2rem;
+}
+
+/* ── Formular ───────────────────────────────────────────────────────────────── */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+}
+
+.error {
+  color: var(--k-danger);
+  font-size: var(--text-sm);
+  line-height: 1.4;
+  margin-top: 0.4rem;
+}
+
+.submit {
+  margin-top: 0.5rem;
+}
+
+/* ── Dank-Meldung ───────────────────────────────────────────────────────────── */
+.success {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.9rem;
+  text-align: center;
+  padding: 1rem 0 0.5rem;
+}
+
+.successIcon {
+  width: 3rem;
+  height: 3rem;
+  color: var(--k-focus);
+}
+
+.successTitle {
+  color: var(--k-text);
+  font-size: var(--text-xl);
+  line-height: 1.15;
+}
+
+.successText {
+  color: var(--k-text-muted);
+  font-size: var(--text-base);
+  line-height: 1.55;
+}
+
+.successLink {
+  color: var(--k-focus);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* ── Fußnote ────────────────────────────────────────────────────────────────── */
+.hint {
+  color: var(--k-text-faint);
+  font-size: var(--text-sm);
+  line-height: 1.5;
+  text-align: center;
+  margin-top: 1.5rem;
+}

@@ -79,8 +79,6 @@ const whyVulnerable = [
     { title: "Niemand prüft es", text: "Ohne Fachwissen bleibt unsichtbar, was falsch konfiguriert ist. Probleme fallen oft erst auf, wenn ein Schaden entstanden ist." },
 ];
 
-const contactMail = "bauer.philipp96@t-online.de";
-
 export function SecurityFacts() {
     return (
         <div className={styles.facts}>
@@ -222,7 +220,7 @@ export function SecurityFacts() {
 
             {/* ===================================================================
                 Abschluss – leistungsbezogene Handlungsaufforderung.
-                Kontakt ausschließlich per mailto (keine Formulare/Backend).
+                Führt auf die Kontakt-Seite (/kontakt).
             ==================================================================== */}
             <section className={cn(styles.section, styles.ctaSection)}>
                 <div className={styles.container}>
@@ -234,12 +232,7 @@ export function SecurityFacts() {
                         die Ergebnisse in klare, priorisierte Handlungsempfehlungen — verständlich,
                         auch ohne IT-Fachwissen.
                     </p>
-                    <Link
-                        className={styles.ctaButton}
-                        href={`mailto:${contactMail}?subject=${encodeURIComponent(
-                            "Anfrage IT-Sicherheitsanalyse"
-                        )}`}
-                    >
+                    <Link className={styles.ctaButton} href="/kontakt">
                         Sicherheitsanalyse anfragen
                     </Link>
                 </div>

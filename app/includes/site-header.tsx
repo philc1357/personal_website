@@ -42,12 +42,7 @@ const MENU_ITEMS: MenuItem[] = [
   { label: "Home", icon: Home, href: "/" },
   { label: "Webentwicklung", icon: Code2, href: "/webentwicklung" },
   { label: "IT-Sicherheitsanalyse", icon: ShieldCheck, href: "/security" },
-  {
-    label: "Kontakt",
-    icon: Mail,
-    href: "mailto:bauer.philipp96@t-online.de",
-    external: true,
-  },
+  { label: "Kontakt", icon: Mail, href: "/kontakt" },
   { label: "Impressum", icon: Scale, href: "/impressum" },
   { label: "Datenschutz", icon: Lock, href: "/datenschutz" },
 ];
