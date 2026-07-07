@@ -70,7 +70,7 @@ export function SecurityView() {
                 >
                     <h1 className={styles.heroHeading}>IT-Sicherheit für Ihr Unternehmen</h1>
                     <p className={styles.heroSubheading}>
-                        Als Junior-Pentester prüfe ich Ihre Website auf die häufigsten
+                        Als Pentester prüfe ich Ihre Website auf die häufigsten
                         Schwachstellen — mit Fokus auf die OWASP&nbsp;Top&nbsp;10. Ein Überblick,
                         warum das zählt.
                     </p>

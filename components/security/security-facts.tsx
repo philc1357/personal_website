@@ -167,7 +167,7 @@ export function SecurityFacts() {
                     <p className={styles.sectionLead}>
                         Sicherheitsfachleute weltweit pflegen eine Rangliste der zehn
                         häufigsten Web-Schwachstellen: die <strong>OWASP&nbsp;Top&nbsp;10</strong>.
-                        Als Junior-Pentester konzentriere ich mich auf die Bereiche, in denen
+                        Als Pentester konzentriere ich mich auf die Bereiche, in denen
                         Websites am häufigsten patzen —{" "}
                         <span className={styles.focusChip}>Mein Schwerpunkt</span> zeigt, worauf
                         ich mich spezialisiert habe.

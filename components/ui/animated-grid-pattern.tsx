@@ -39,8 +39,8 @@ interface Square {
 }
 
 export function AnimatedGridPattern({
-    width = 20,
-    height = 20,
+    width = 40,
+    height = 40,
     x = -1,
     y = -1,
     numSquares = 48,
