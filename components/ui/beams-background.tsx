@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
 import styles from "./beams-background.module.css";
@@ -53,6 +53,24 @@ export function BeamsBackground({
     const animationFrameRef = useRef<number>(0);
 
     // ─────────────────────────────────────────────────────────────────────────
+    // Breakpoint-Erkennung (< 768px = Handy)
+    // Single Source of Truth für die Mobil-Anpassungen: steuert sowohl die
+    // Canvas-Animation (Positionierung/Anzahl/Blur) als auch die Inline-Blur-
+    // Werte im JSX. Auf dem Desktop (≥ 768px) bleibt alles wie bisher.
+    // ─────────────────────────────────────────────────────────────────────────
+    const [isMobile, setIsMobile] = useState<boolean>(() => {
+        if (typeof window === "undefined") return false;
+        return window.matchMedia("(max-width: 767px)").matches;
+    });
+
+    useEffect(() => {
+        const mq = window.matchMedia("(max-width: 767px)");
+        const onChange = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+        mq.addEventListener("change", onChange);
+        return () => mq.removeEventListener("change", onChange);
+    }, []);
+
+    // ─────────────────────────────────────────────────────────────────────────
     // Canvas-Animation: Beams zeichnen & pro Frame nach oben bewegen.
     // ─────────────────────────────────────────────────────────────────────────
     useEffect(() => {
@@ -70,6 +88,22 @@ export function BeamsBackground({
             strong: 1,
         };
 
+        // ─────────────────────────────────────────────────────────────────────
+        // Konfiguration je nach Gerät.
+        // Desktop: exakt die bisherigen Werte (Positionierung in Geräte-Pixeln,
+        //          30 Beams, 3 Spalten, Blur 35px) → Look unverändert.
+        // Mobil:   Positionierung in CSS-Pixeln (behebt den dpr-Fehler, der die
+        //          Beams sonst aus dem Bild schiebt) + weniger/klarere Streifen.
+        // logicalW/logicalH sind die Maße, in denen die Beams platziert werden.
+        // ─────────────────────────────────────────────────────────────────────
+        let config = {
+            logicalW: 0,
+            logicalH: 0,
+            beamCount: 0,
+            columns: 3,
+            canvasBlur: 35,
+        };
+
         const updateCanvasSize = () => {
             const dpr = window.devicePixelRatio || 1;
             canvas.width = window.innerWidth * dpr;
@@ -78,9 +112,24 @@ export function BeamsBackground({
             canvas.style.height = `${window.innerHeight}px`;
             ctx.scale(dpr, dpr);
 
-            const totalBeams = MINIMUM_BEAMS * 1.5;
-            beamsRef.current = Array.from({ length: totalBeams }, () =>
-                createBeam(canvas.width, canvas.height)
+            config = isMobile
+                ? {
+                      logicalW: window.innerWidth,
+                      logicalH: window.innerHeight,
+                      beamCount: 12,
+                      columns: 2,
+                      canvasBlur: 18,
+                  }
+                : {
+                      logicalW: canvas.width,
+                      logicalH: canvas.height,
+                      beamCount: MINIMUM_BEAMS * 1.5,
+                      columns: 3,
+                      canvasBlur: 35,
+                  };
+
+            beamsRef.current = Array.from({ length: config.beamCount }, () =>
+                createBeam(config.logicalW, config.logicalH)
             );
         };
 
@@ -90,10 +139,10 @@ export function BeamsBackground({
         function resetBeam(beam: Beam, index: number, totalBeams: number) {
             if (!canvas) return beam;
 
-            const column = index % 3;
-            const spacing = canvas.width / 3;
+            const column = index % config.columns;
+            const spacing = config.logicalW / config.columns;
 
-            beam.y = canvas.height + 100;
+            beam.y = config.logicalH + 100;
             beam.x =
                 column * spacing +
                 spacing / 2 +
@@ -148,7 +197,7 @@ export function BeamsBackground({
             if (!canvas || !ctx) return;
 
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.filter = "blur(35px)";
+            ctx.filter = `blur(${config.canvasBlur}px)`;
 
             const totalBeams = beamsRef.current.length;
             beamsRef.current.forEach((beam, index) => {
@@ -174,7 +223,7 @@ export function BeamsBackground({
                 cancelAnimationFrame(animationFrameRef.current);
             }
         };
-    }, [intensity]);
+    }, [intensity, isMobile]);
 
     return (
         <div
@@ -187,7 +236,7 @@ export function BeamsBackground({
             <canvas
                 ref={canvasRef}
                 className="absolute inset-0"
-                style={{ filter: "blur(15px)" }}
+                style={{ filter: isMobile ? "blur(8px)" : "blur(15px)" }}
             />
 
             <motion.div
@@ -201,7 +250,7 @@ export function BeamsBackground({
                     repeat: Number.POSITIVE_INFINITY,
                 }}
                 style={{
-                    backdropFilter: "blur(50px)",
+                    backdropFilter: isMobile ? "blur(30px)" : "blur(50px)",
                 }}
             />
 

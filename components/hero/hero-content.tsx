@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import styles from "./hero-content.module.css";
@@ -10,13 +11,15 @@ export function HeroContent() {
   return (
     <div className={cn(styles.root, "flex flex-col items-center gap-6 px-4")}>
       <h1 className={styles.heading}>Bauer Web-Solutions</h1>
-      <p className={styles.subheading}>Full-Stack-Webentwicklung und Pentesting</p>
+      <p className={styles.subheading}>
+        Full-Stack-Webentwicklung und IT-Sicherheitsanalysen
+      </p>
       <div className="flex flex-wrap items-center justify-center gap-4">
         <Button asChild variant="default" size="lg">
-          <a href="#webentwicklung">Webentwicklung</a>
+          <Link href="/webentwicklung">Webentwicklung</Link>
         </Button>
         <Button asChild variant="outline" size="lg">
-          <a href="#pentesting">Pentesting</a>
+          <Link href="/security">IT-Sicherheitsanalyse</Link>
         </Button>
       </div>
     </div>
