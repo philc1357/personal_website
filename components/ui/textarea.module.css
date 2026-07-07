@@ -9,7 +9,7 @@
   font-family: var(--font-sans);
   font-size: var(--text-base);
   line-height: 1.5;
-  resize: vertical;
+  resize: none;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
