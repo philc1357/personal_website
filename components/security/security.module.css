@@ -1,0 +1,337 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   Security-Seite – Optik (nur Farben/Typografie/Abstände; Layout via Tailwind)
+   Alle Farben stammen aus lokal gesetzten Custom-Properties (unten) bzw. den
+   globalen Design-Tokens (app/globals.css). Bewusst dunkles Theme auf reinem
+   Schwarz, damit der ausgeblendete Beams-Hintergrund nahtlos übergeht.
+   ───────────────────────────────────────────────────────────────────────────── */
+
+.view {
+  /* Lokale Farb-Token (scoped – wirken nur auf dieser Seite) */
+  --sec-text: var(--color-accent-contrast);
+  --sec-text-muted: rgba(255, 255, 255, 0.68);
+  --sec-text-faint: rgba(255, 255, 255, 0.42);
+  --sec-danger: #ef4444; /* Warnfarbe für Risiko-Kennzahlen/Balken */
+  --sec-focus: #38bdf8; /* Akzent im Ton der Beams (Cyan) – „Mein Schwerpunkt“ */
+  --sec-surface: rgba(255, 255, 255, 0.04);
+  --sec-surface-strong: rgba(255, 255, 255, 0.06);
+  --sec-border: rgba(255, 255, 255, 0.1);
+
+  position: relative;
+  background: var(--color-bg-dark);
+}
+
+/* ── Fixer Hintergrund: schwarze Fläche, auf der die Beams ausblenden ───────── */
+.fixedBackdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background: var(--color-bg-dark);
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* ── Hero (100vh) ───────────────────────────────────────────────────────────── */
+.heroInner {
+  max-width: 46rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.heroHeading {
+  color: var(--sec-text);
+  font-size: clamp(2.25rem, 8vw, var(--text-3xl));
+  line-height: 1.05;
+}
+
+.heroSubheading {
+  color: var(--sec-text);
+  opacity: 0.85;
+  font-size: var(--text-lg);
+  line-height: 1.5;
+}
+
+/* Dezenter Scroll-Hinweis unter dem Einstiegstext */
+.scrollHint {
+  margin-top: 1rem;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--sec-text-muted);
+  font-size: var(--text-sm);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.scrollHintIcon {
+  width: 1.5rem;
+  height: 1.5rem;
+  animation: scrollBounce 1.8s ease-in-out infinite;
+}
+
+@keyframes scrollBounce {
+  0%, 100% { transform: translateY(0); opacity: 0.6; }
+  50% { transform: translateY(6px); opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scrollHintIcon {
+    animation: none;
+  }
+}
+
+/* ── Gemeinsame Sektions-Struktur ───────────────────────────────────────────── */
+.facts {
+  position: relative;
+}
+
+.section {
+  padding-block: var(--space-section);
+}
+
+/* Die letzte Sektion (CTA) etwas kompakter abschließen */
+.section + .section {
+  padding-top: 0;
+}
+
+.container {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+}
+
+.sectionTitle {
+  color: var(--sec-text);
+  font-size: var(--text-2xl);
+  line-height: 1.15;
+  margin-bottom: 1rem;
+}
+
+.sectionLead {
+  color: var(--sec-text-muted);
+  font-size: var(--text-lg);
+  line-height: 1.55;
+  max-width: 68ch;
+  margin-bottom: 2.5rem;
+}
+
+.sourceNote {
+  color: var(--sec-text-faint);
+  font-size: var(--text-sm);
+  font-style: italic;
+  margin-top: 2rem;
+}
+
+/* ── Awareness-Kennzahlen (Stat-Kacheln) ────────────────────────────────────── */
+.statGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+}
+
+.statTile {
+  background: var(--sec-surface);
+  border: 1px solid var(--sec-border);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+}
+
+.statValue {
+  color: var(--sec-danger);
+  font-size: var(--text-2xl);
+  line-height: 1;
+  font-weight: 700;
+}
+
+.statText {
+  color: var(--sec-text);
+  opacity: 0.9;
+  margin-top: 0.75rem;
+  line-height: 1.45;
+}
+
+.statSource {
+  color: var(--sec-text-faint);
+  font-size: var(--text-sm);
+  margin-top: 0.75rem;
+}
+
+/* ── Fehlende Schutzmaßnahmen (Balken) ──────────────────────────────────────── */
+.barList {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+.barHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+}
+
+.barLabel {
+  color: var(--sec-text);
+  font-weight: 600;
+}
+
+.barPercent {
+  color: var(--sec-danger);
+  font-weight: 700;
+}
+
+.barTrack {
+  margin-top: 0.5rem;
+  height: 0.9rem;
+  background: var(--sec-surface-strong);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.barFill {
+  height: 100%;
+  background: var(--sec-danger);
+  border-radius: var(--radius-sm);
+}
+
+.barDesc {
+  color: var(--sec-text-muted);
+  font-size: var(--text-sm);
+  margin-top: 0.75rem;
+  line-height: 1.45;
+}
+
+/* ── OWASP Top 10 ───────────────────────────────────────────────────────────── */
+.owaspGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1rem;
+}
+
+.owaspCard {
+  display: flex;
+  gap: 1rem;
+  padding: 1.25rem;
+  background: var(--sec-surface);
+  border: 1px solid var(--sec-border);
+  border-radius: var(--radius-md);
+}
+
+/* Hervorgehobene Karten: die Schwerpunkte im Beams-Cyan akzentuiert */
+.owaspCardFocus {
+  border-color: color-mix(in srgb, var(--sec-focus) 55%, transparent);
+  background: color-mix(in srgb, var(--sec-focus) 8%, var(--sec-surface));
+}
+
+.owaspRank {
+  flex-shrink: 0;
+  align-self: flex-start;
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--sec-text-muted);
+  background: var(--sec-surface-strong);
+  border-radius: var(--radius-sm);
+  padding: 0.2rem 0.5rem;
+}
+
+.owaspTitle {
+  color: var(--sec-text);
+  font-weight: 600;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.owaspDesc {
+  color: var(--sec-text-muted);
+  font-size: var(--text-sm);
+  margin-top: 0.35rem;
+  line-height: 1.45;
+}
+
+/* Badge „Mein Schwerpunkt“ – Cyan-Akzent passend zu den Beams */
+.owaspBadge,
+.focusChip {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--sec-focus);
+  background: color-mix(in srgb, var(--sec-focus) 14%, transparent);
+  border: 1px solid color-mix(in srgb, var(--sec-focus) 40%, transparent);
+  border-radius: 999px;
+  padding: 0.1rem 0.6rem;
+  white-space: nowrap;
+}
+
+.focusChip {
+  display: inline-block;
+}
+
+/* ── Warum angreifbar? (Karten) ─────────────────────────────────────────────── */
+.whyGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+
+.whyCard {
+  background: var(--sec-surface);
+  border: 1px solid var(--sec-border);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+}
+
+.whyTitle {
+  color: var(--sec-text);
+  font-size: var(--text-lg);
+  margin-bottom: 0.6rem;
+}
+
+.whyText {
+  color: var(--sec-text-muted);
+  line-height: 1.5;
+}
+
+/* ── Abschluss / CTA ────────────────────────────────────────────────────────── */
+.ctaSection .container {
+  text-align: center;
+  max-width: 720px;
+}
+
+.ctaTitle {
+  color: var(--sec-text);
+  font-size: var(--text-2xl);
+  margin-bottom: 1rem;
+}
+
+.ctaText {
+  color: var(--sec-text-muted);
+  font-size: var(--text-lg);
+  line-height: 1.55;
+  margin-bottom: 2rem;
+}
+
+.ctaButton {
+  display: inline-block;
+  background: var(--color-accent-contrast);
+  color: var(--color-bg-dark);
+  font-weight: 600;
+  padding: 0.85rem 1.75rem;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+.ctaButton:hover {
+  transform: translateY(-2px);
+  opacity: 0.92;
+}
+
+.ctaButton:focus-visible {
+  outline: 2px solid var(--sec-focus);
+  outline-offset: 3px;
+}

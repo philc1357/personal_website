@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { SecurityView } from "@/components/security/security-view";
 
 export const metadata: Metadata = {
   title: "IT-Sicherheitsanalyse (Pentesting)",
@@ -7,5 +8,5 @@ export const metadata: Metadata = {
 };
 
 export default function SecurityPage() {
-  return null;
+  return <SecurityView />;
 }

@@ -28,9 +28,12 @@
   --color-accent: #111111;
   --color-accent-contrast: #ffffff;
 
-  /* Typografie – Font-Familien werden in layout.tsx via next/font gesetzt */
+  /* Typografie – Font-Familien werden in layout.tsx via next/font gesetzt.
+     --font-sans (Karla) = Fließtext, --font-heading (Michroma) = Überschriften,
+     --font-mono (JetBrains Mono) = Code/Labels/Badges. */
   --font-sans: var(--font-sans-fallback), system-ui, sans-serif;
-  --font-mono: ui-monospace, "SFMono-Regular", "Menlo", monospace;
+  --font-heading: var(--font-heading-fallback), system-ui, sans-serif;
+  --font-mono: var(--font-mono-fallback), ui-monospace, "SFMono-Regular", monospace;
 
   /* Typo-Skala */
   --text-sm: 0.875rem;
@@ -75,4 +78,15 @@ body {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+}
+
+/* Überschriften nutzen durchgängig die Heading-Schrift (Michroma) –
+   unabhängig davon, in welcher Komponente sie stehen. */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
 }
