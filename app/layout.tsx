@@ -51,8 +51,9 @@ export default function RootLayout({
         <SiteHeader />
         {children}
         {/* Globale Cursor-Effekte (nur Desktop/Maus, nur über dunklen Bereichen).
-            Anpassung über den CURSOR_CONFIG-Block in cursor-effects.tsx. */}
-        <CursorEffects />
+            Anpassung über den CURSOR_CONFIG-Block in cursor-effects.tsx.
+            Temporär deaktiviert – einfach wieder einkommentieren zum Reaktivieren. */}
+        {/* <CursorEffects /> */}
       </body>
     </html>
   );

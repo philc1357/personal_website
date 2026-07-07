@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "motion/react";
 import { ChevronDown } from "lucide-react";
-import { BeamsCanvas } from "@/components/ui/beams-canvas";
+import { DarkVeil } from "@/components/ui/dark-veil";
 import { AnimatedGridPattern } from "@/components/ui/animated-grid-pattern";
 import { cn } from "@/lib/utils";
 import { SecurityFacts } from "./security-facts";
@@ -34,6 +34,9 @@ export function SecurityView() {
     // Hintergrund-Crossfade: Grid ist von Anfang an sichtbar (wie im Hero auf
     // app/page.tsx), die Beams blenden beim Scrollen aus.
     const beamsOpacity = useTransform(scrollYProgress, [0, 1], [1, 0]);
+    // Grid wird nur während des Hero-Scrollbereichs (bis der Dark-Veil-Effekt
+    // verschwindet) gleichmäßig transparenter und bleibt danach konstant.
+    const gridOpacity = useTransform(scrollYProgress, [0, 1], [1, 0.15]);
     // Text-Fade: etwas schneller ausblenden + leicht nach oben bewegen.
     const textOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
     const textY = useTransform(scrollYProgress, [0, 1], [0, -60]);
@@ -43,16 +46,17 @@ export function SecurityView() {
         <div className={styles.view} data-cursor-dark>
             {/* 1) Fixer Hintergrund: schwarze Fläche bleibt; Grid & Beams überblenden */}
             <div className={styles.fixedBackdrop} aria-hidden="true">
-                {/* Grid-Ebene: durchgehend sichtbar (liegt hinter den Beams) */}
-                <div className="absolute inset-0">
-                    <AnimatedGridPattern maxOpacity={0.35} numSquares={48} />
-                </div>
-                {/* Beams-Ebene: blendet beim Scrollen aus */}
+                {/* DarkVeil-Ebene: blendet beim Scrollen aus */}
                 <motion.div
                     className="absolute inset-0"
                     style={{ opacity: beamsOpacity }}
                 >
-                    <BeamsCanvas intensity="strong" />
+                    <DarkVeil hueShift={35} />
+                </motion.div>
+                {/* Grid-Ebene: liegt über den Beams, damit es im Hero direkt sichtbar ist;
+                    wird beim Scrollen über die gesamte Seite gleichmäßig transparenter */}
+                <motion.div className="absolute inset-0" style={{ opacity: gridOpacity }}>
+                    <AnimatedGridPattern maxOpacity={0.35} numSquares={48} />
                 </motion.div>
             </div>
 

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { TypewriterLoop } from "./typewriter-loop";
 import styles from "./hero-content.module.css";
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -12,7 +13,9 @@ export function HeroContent() {
     <div className={cn(styles.root, "flex flex-col items-center gap-6 px-4")}>
       <h1 className={styles.heading}>Bauer Web-Solutions</h1>
       <p className={styles.subheading}>
-        Full-Stack-Webentwicklung und IT-Sicherheitsanalysen
+        <TypewriterLoop
+          words={["Full-Stack-Webentwicklung", "IT-Sicherheitsanalysen"]}
+        />
       </p>
       <div className="flex flex-wrap items-center justify-center gap-4">
         <Button asChild variant="default" size="lg">
