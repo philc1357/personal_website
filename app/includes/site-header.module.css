@@ -24,8 +24,10 @@
   pointer-events: auto;
 }
 
-/* Transparenter Kreis – gemeinsame Optik für Toggle-Button und Menüpunkte:
-   keine Füllung, nur weißer Rand und weißes Icon. Beim Hover eine dezente
+/* Kreis bleibt durchsichtig (kein Deckfarbton), hebt sich aber per
+   Frosted-Glass (Blur + minimale Abdunkelung des Hintergrunds dahinter) +
+   Schatten von JEDEM Hintergrund ab – auch von hellen/bunten Beams-Bereichen,
+   auf denen ein reiner weißer Rand sonst untergeht. Beim Hover eine dezente
    Füllung als visuelles Feedback. */
 .circle {
   display: flex;
@@ -35,7 +37,10 @@
   height: 3rem;
   border-radius: 999px;
   color: var(--color-accent-contrast);
-  background: transparent;
+  background: rgba(10, 10, 20, 0.28);
+  backdrop-filter: blur(10px) saturate(140%);
+  -webkit-backdrop-filter: blur(10px) saturate(140%);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
   border: 1px solid var(--color-glass-border, rgba(255, 255, 255, 0.8));
   cursor: pointer;
   transition: background 0.2s ease, border-color 0.2s ease;

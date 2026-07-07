@@ -105,9 +105,14 @@
 
 .sectionTitle {
   color: var(--sec-text);
-  font-size: var(--text-2xl);
+  /* Responsiv statt fester --text-2xl (40px): auf schmalen Viewports haben
+     zusammengesetzte deutsche Wörter (z.B. "Schutzmaßnahmen") sonst keine
+     Umbruchstelle und sprengen den Container -> horizontales Scrollen der
+     gesamten Seite. overflow-wrap dient als zusätzliches Sicherheitsnetz. */
+  font-size: clamp(1.5rem, 5.5vw, var(--text-2xl));
   line-height: 1.15;
   margin-bottom: 1rem;
+  overflow-wrap: break-word;
 }
 
 .sectionLead {
@@ -304,8 +309,9 @@
 
 .ctaTitle {
   color: var(--sec-text);
-  font-size: var(--text-2xl);
+  font-size: clamp(1.5rem, 5.5vw, var(--text-2xl));
   margin-bottom: 1rem;
+  overflow-wrap: break-word;
 }
 
 .ctaText {
