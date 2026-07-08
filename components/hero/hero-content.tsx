@@ -20,13 +20,25 @@ export function HeroContent() {
       </p>
       <div className="flex flex-wrap items-center justify-center gap-4">
         <div className="relative">
-          <GlowEffect mode="colorShift" blur="soft" duration={6} scale={0.9} />
+          <GlowEffect
+            mode="colorShift"
+            blur="soft"
+            duration={6}
+            scale={0.95}
+            className="rounded-[var(--radius-md)]"
+          />
           <Button asChild variant="default" size="lg" className="relative z-10">
             <Link href="/webentwicklung">Webentwicklung</Link>
           </Button>
         </div>
         <div className="relative">
-          <GlowEffect mode="colorShift" blur="soft" duration={6} scale={0.9} />
+          <GlowEffect
+            mode="colorShift"
+            blur="soft"
+            duration={6}
+            scale={0.95}
+            className="rounded-[var(--radius-md)]"
+          />
           <Button asChild variant="outline" size="lg" className="relative z-10">
             <Link href="/security">IT-Sicherheitsanalyse</Link>
           </Button>

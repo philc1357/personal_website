@@ -30,7 +30,9 @@
 }
 
 .variantOutline:hover {
-  background: rgba(255, 255, 255, 0.1);
+  /* Deckend bleiben (kein rgba-Alpha), sonst scheint der Glow-Effekt
+     beim Hover durch die Buttonfläche durch. */
+  background: color-mix(in srgb, var(--color-bg-dark) 90%, white 10%);
 }
 
 .sizeDefault {

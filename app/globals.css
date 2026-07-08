@@ -73,9 +73,15 @@
   --card-surface: rgba(255, 255, 255, 0.04);
   --card-surface-strong: rgba(255, 255, 255, 0.06);
   --card-border: rgba(255, 255, 255, 0.1);
-  --card-glow: #38bdf8;
+
+  /* Akzentfarbe – exakt an den DarkVeil-Effekt (components/ui/dark-veil.tsx,
+     hueShift=35) angeglichen. Single Source of Truth für ALLE Glow-Effekte
+     (Cards, Button-Glows via GlowEffect). Bei Änderung des hueShift-Werts im
+     DarkVeil-Aufruf hier nachziehen; für visuelle Feinjustierung genügt es,
+     NUR --card-glow anzupassen – Soft-/Light-Variante leiten automatisch ab. */
+  --card-glow: #2847c3;
   --card-glow-soft: color-mix(in srgb, var(--card-glow) 35%, transparent);
-  --card-glow-light: #7dd3fc;
+  --card-glow-light: color-mix(in srgb, var(--card-glow) 55%, white);
 }
 
 /* Grund-Reset / Basis-Anmutung */
