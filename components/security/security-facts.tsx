@@ -124,7 +124,7 @@ export function SecurityFacts() {
                     </p>
                     <div className={styles.barList}>
                         {missingProtections.map((p) => (
-                            <div key={p.label} className={styles.barRow}>
+                            <Card key={p.label} contentClassName={styles.barRow} data-cursor-card>
                                 <div className={styles.barHead}>
                                     <span className={styles.barLabel}>{p.label}</span>
                                     <span className={styles.barPercent}>{p.percent}&nbsp;%</span>
@@ -143,7 +143,7 @@ export function SecurityFacts() {
                                     />
                                 </div>
                                 <p className={styles.barDesc}>{p.desc}</p>
-                            </div>
+                            </Card>
                         ))}
                     </div>
                     <p className={styles.sourceNote}>

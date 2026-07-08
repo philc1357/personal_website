@@ -162,6 +162,10 @@
   gap: 2rem;
 }
 
+.barRow {
+  padding: 1.75rem;
+}
+
 .barHead {
   display: flex;
   justify-content: space-between;
@@ -213,12 +217,14 @@
   padding: 1.25rem;
 }
 
-/* Hervorgehobene Karten: die Schwerpunkte im Beams-Cyan akzentuiert. Setzt die
+/* Hervorgehobene Karten: die Schwerpunkte schwarz akzentuiert. Setzt die
    Card-Tokens lokal um (kaskadieren in die Glow-/Glasflächen-Ebenen der
    components/ui/card.tsx). */
 .owaspCardFocus {
-  --card-border: color-mix(in srgb, var(--sec-focus) 55%, transparent);
-  --card-surface: color-mix(in srgb, var(--sec-focus) 8%, var(--sec-surface));
+  /* --card-border bewusst nicht überschrieben: Rahmen bleibt identisch zu den
+     übrigen Karten (Default-Ton aus den Design-Tokens), nur die Fläche wird
+     schwarz akzentuiert. */
+  --card-surface: color-mix(in srgb, #000 8%, var(--sec-surface));
 }
 
 .owaspRank {
