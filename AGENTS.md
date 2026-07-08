@@ -13,4 +13,5 @@ stehen in `CLAUDE.md` und gelten verbindlich.
 - Vor größeren/wichtigen Entscheidungen rückfragen.
 
 ## Verifikation
-`npm run build` (muss `out/` fehlerfrei erzeugen) · `npm run lint` · `npm run typecheck`.
+`npm run lint` · `npm run typecheck`. **Kein** `npm run build` zur Selbstkontrolle nach
+Änderungen ausführen (dauert lange, nicht nötig) – nur wenn der Nutzer explizit danach fragt.

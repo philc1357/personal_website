@@ -55,9 +55,20 @@
 }
 
 /* ── Zentrierte Formular-Karte ──────────────────────────────────────────────── */
+/* Card ist im Ruhezustand bereits schwarz (components/ui/card.module.css);
+   hier zusätzlich den Hover-Effekt deaktivieren, indem der Blau-Akzent für
+   diese Karte ebenfalls auf Schwarz gesetzt wird – Formular-Karte bleibt
+   dauerhaft neutral statt beim Hovern zu leuchten. */
 .card {
   width: 100%;
   max-width: 32rem;
+  --card-glow: #000;
+  --card-glow-soft: rgba(0, 0, 0, 0.6);
+}
+
+.card:hover {
+  transform: none;
+  box-shadow: none;
 }
 
 .cardContent {

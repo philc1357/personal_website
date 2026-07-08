@@ -1,19 +1,26 @@
 /* ─────────────────────────────────────────────────────────────────────────────
    Webentwicklung-Seite – Optik (nur Farben/Typografie/Abstände; Layout via
-   Tailwind). Gleiche Optik wie die Kontakt-/Impressum-Seite: dunkles Theme auf
-   reinem Schwarz, zentrierte Karte über animiertem Grid.
+   Tailwind). Aufbau analog zur Schwesterseite /security: dunkles Theme auf
+   reinem Schwarz, damit der ausgeblendete Beams-Hintergrund nahtlos übergeht.
+   Alle Farben stammen aus lokal gesetzten Custom-Properties (unten) bzw. den
+   globalen Design-Tokens (app/globals.css).
    ───────────────────────────────────────────────────────────────────────────── */
 
 .view {
+  /* Lokale Farb-Token (scoped – wirken nur auf dieser Seite) */
   --w-text: var(--color-accent-contrast);
   --w-text-muted: rgba(255, 255, 255, 0.68);
+  --w-text-faint: rgba(255, 255, 255, 0.42);
+  --w-accent: var(--card-glow); /* Akzent im Ton der Card-Glows (Blau) */
+  --w-surface: var(--card-surface);
+  --w-surface-strong: var(--card-surface-strong);
+  --w-border: var(--card-border);
 
   position: relative;
-  min-height: 100vh;
   background: var(--color-bg-dark);
 }
 
-/* ── Fixer Hintergrund: schwarze Fläche mit animiertem Grid ─────────────────── */
+/* ── Fixer Hintergrund: schwarze Fläche, auf der die Beams ausblenden ───────── */
 .fixedBackdrop {
   position: fixed;
   inset: 0;
@@ -23,45 +30,239 @@
   pointer-events: none;
 }
 
-/* Grid zum Zentrum hin ausblenden, damit die Karte im Fokus bleibt */
-.gridMask {
-  position: absolute;
-  inset: 0;
-  -webkit-mask-image: radial-gradient(
-    ellipse at center,
-    transparent 0%,
-    rgba(0, 0, 0, 0.4) 42%,
-    #000 72%
-  );
-  mask-image: radial-gradient(
-    ellipse at center,
-    transparent 0%,
-    rgba(0, 0, 0, 0.4) 42%,
-    #000 72%
-  );
-}
-
-/* ── Zentrierte Karte ────────────────────────────────────────────────────────── */
-.card {
-  width: 100%;
-  max-width: 32rem;
-}
-
-.cardContent {
-  padding: clamp(1.5rem, 4vw, 2.5rem);
+/* ── Hero (100vh) ───────────────────────────────────────────────────────────── */
+.heroInner {
+  max-width: 46rem;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
 }
 
-.heading {
+.heroHeading {
   color: var(--w-text);
-  font-size: clamp(1.75rem, 6vw, var(--text-2xl));
-  line-height: 1.1;
+  font-size: clamp(2.25rem, 8vw, var(--text-3xl));
+  line-height: 1.05;
   overflow-wrap: break-word;
 }
 
-.lead {
+.heroSubheading {
+  color: var(--w-text);
+  opacity: 0.85;
+  font-size: var(--text-lg);
+  line-height: 1.5;
+}
+
+/* Dezenter Scroll-Hinweis unter dem Einstiegstext */
+.scrollHint {
+  margin-top: 1rem;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
   color: var(--w-text-muted);
-  font-size: var(--text-base);
+  font-size: var(--text-sm);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.scrollHintIcon {
+  width: 1.5rem;
+  height: 1.5rem;
+  animation: scrollBounce 1.8s ease-in-out infinite;
+}
+
+@keyframes scrollBounce {
+  0%, 100% { transform: translateY(0); opacity: 0.6; }
+  50% { transform: translateY(6px); opacity: 1; }
+}
+
+/* ── Gemeinsame Sektions-Struktur ───────────────────────────────────────────── */
+.facts {
+  position: relative;
+}
+
+.section {
+  padding-block: var(--space-section);
+}
+
+/* Aufeinanderfolgende Sektionen kompakter aneinanderfügen */
+.section + .section {
+  padding-top: 0;
+}
+
+.container {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+}
+
+.sectionTitle {
+  color: var(--w-text);
+  /* Responsiv statt fester --text-2xl: auf schmalen Viewports haben deutsche
+     Komposita sonst keine Umbruchstelle und sprengen den Container. */
+  font-size: clamp(1.5rem, 5.5vw, var(--text-2xl));
+  line-height: 1.15;
+  margin-bottom: 1rem;
+  overflow-wrap: break-word;
+}
+
+.sectionLead {
+  color: var(--w-text-muted);
+  font-size: var(--text-lg);
   line-height: 1.55;
-  margin-top: 0.75rem;
+  max-width: 68ch;
+  margin-bottom: 2.5rem;
+}
+
+/* ── Warum eine eigene Website? (Karten) ────────────────────────────────────── */
+.reasonGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+
+.reasonCard {
+  padding: 1.75rem;
+}
+
+.reasonTitle {
+  color: var(--w-text);
+  font-size: var(--text-lg);
+  margin-bottom: 0.6rem;
+}
+
+.reasonText {
+  color: var(--w-text-muted);
+  line-height: 1.5;
+}
+
+/* ── Leistungen (Kern-Sektion, Karten mit Icon) ─────────────────────────────── */
+.serviceGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.serviceCard {
+  display: flex;
+  gap: 1.25rem;
+  padding: 1.75rem;
+}
+
+/* Icon-Anker im Akzent-Ton (Card-Glow-Blau) */
+.serviceIcon {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: var(--radius-md);
+  color: var(--w-accent);
+  background: color-mix(in srgb, var(--w-accent) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--w-accent) 40%, transparent);
+}
+
+.serviceIcon svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.serviceTitle {
+  color: var(--w-text);
+  font-size: var(--text-lg);
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.serviceDesc {
+  color: var(--w-text-muted);
+  font-size: var(--text-sm);
+  line-height: 1.5;
+}
+
+/* ── Tech-Stack (Badge-Reihe) ───────────────────────────────────────────────── */
+.techList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.techBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--w-accent);
+  background: color-mix(in srgb, var(--w-accent) 14%, transparent);
+  border: 1px solid color-mix(in srgb, var(--w-accent) 40%, transparent);
+  border-radius: var(--radius-md);
+  padding: 0.4rem 1rem;
+  white-space: nowrap;
+}
+
+.techIcon {
+  width: 1.1em;
+  height: 1.1em;
+  flex-shrink: 0;
+}
+
+/* ── Referenzen (Platzhalter) ───────────────────────────────────────────────── */
+.placeholderCard {
+  padding: 2.5rem 1.75rem;
+  text-align: center;
+  /* Dezenter, gestrichelter Rahmen signalisiert „noch in Vorbereitung“. */
+  border: 1px dashed var(--w-border);
+  border-radius: var(--radius-lg);
+}
+
+.placeholderText {
+  color: var(--w-text-faint);
+  font-size: var(--text-lg);
+  font-style: italic;
+}
+
+/* ── Abschluss / CTA ────────────────────────────────────────────────────────── */
+.ctaSection .container {
+  text-align: center;
+  max-width: 720px;
+}
+
+.ctaTitle {
+  color: var(--w-text);
+  font-size: clamp(1.5rem, 5.5vw, var(--text-2xl));
+  margin-bottom: 1rem;
+  overflow-wrap: break-word;
+}
+
+.ctaText {
+  color: var(--w-text-muted);
+  font-size: var(--text-lg);
+  line-height: 1.55;
+  margin-bottom: 2rem;
+}
+
+.ctaButton {
+  display: inline-block;
+  background: var(--color-accent-contrast);
+  color: var(--color-bg-dark);
+  font-weight: 600;
+  padding: 0.85rem 1.75rem;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+.ctaButton:hover {
+  transform: translateY(-2px);
+  opacity: 0.92;
+}
+
+.ctaButton:focus-visible {
+  outline: 2px solid var(--w-accent);
+  outline-offset: 3px;
 }
