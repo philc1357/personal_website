@@ -1,0 +1,220 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   Referenzen-Seite – Optik (nur Farben/Typografie/Abstände; Layout via Tailwind)
+   Gleiche Farbwelt/Tokens wie die Security-Seite (dunkles Theme), damit sich
+   beide Seiten als zusammengehöriger Security-Bereich anfühlen.
+   ───────────────────────────────────────────────────────────────────────────── */
+
+.view {
+  --ref-text: var(--color-accent-contrast);
+  --ref-text-muted: rgba(255, 255, 255, 0.68);
+  --ref-text-faint: rgba(255, 255, 255, 0.42);
+  --ref-focus: #38bdf8;
+  --ref-surface: rgba(255, 255, 255, 0.04);
+  --ref-surface-strong: rgba(255, 255, 255, 0.06);
+  --ref-border: rgba(255, 255, 255, 0.1);
+
+  position: relative;
+  background: var(--color-bg-dark);
+}
+
+/* ── Fixer Hintergrund: schwarze Fläche mit animiertem Grid ─────────────────── */
+.fixedBackdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background: var(--color-bg-dark);
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.hero {
+  display: flex;
+  justify-content: center;
+}
+
+.heroInner {
+  max-width: 46rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  padding-inline: 1.5rem;
+}
+
+.heroHeading {
+  color: var(--ref-text);
+  font-size: clamp(2rem, 7vw, var(--text-3xl));
+  line-height: 1.1;
+}
+
+.heroSubheading {
+  color: var(--ref-text-muted);
+  font-size: var(--text-lg);
+  line-height: 1.5;
+}
+
+.scrollHint {
+  margin-top: 1rem;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--ref-text-muted);
+  font-size: var(--text-sm);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.scrollHintIcon {
+  width: 1.5rem;
+  height: 1.5rem;
+  animation: scrollBounce 1.8s ease-in-out infinite;
+}
+
+@keyframes scrollBounce {
+  0%, 100% { transform: translateY(0); opacity: 0.6; }
+  50% { transform: translateY(6px); opacity: 1; }
+}
+
+.facts {
+  position: relative;
+}
+
+.section {
+  padding-block: var(--space-section);
+}
+
+.section + .section {
+  padding-top: 0;
+}
+
+.container {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+}
+
+.sectionTitle {
+  color: var(--ref-text);
+  font-size: clamp(1.5rem, 5.5vw, var(--text-2xl));
+  line-height: 1.15;
+  margin-bottom: 1rem;
+  overflow-wrap: break-word;
+}
+
+.sectionLead {
+  color: var(--ref-text-muted);
+  font-size: var(--text-lg);
+  line-height: 1.55;
+  max-width: 68ch;
+  margin-bottom: 2.5rem;
+}
+
+.sourceNote {
+  color: var(--ref-text-faint);
+  font-size: var(--text-sm);
+  font-style: italic;
+  margin-top: 2rem;
+}
+
+/* ── Case-Study-Karten ──────────────────────────────────────────────────────── */
+.caseGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.caseCard {
+  background: var(--ref-surface);
+  border: 1px solid var(--ref-border);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.caseCategory {
+  align-self: flex-start;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--ref-focus);
+  background: color-mix(in srgb, var(--ref-focus) 14%, transparent);
+  border: 1px solid color-mix(in srgb, var(--ref-focus) 40%, transparent);
+  border-radius: var(--radius-md);
+  padding: 0.15rem 0.65rem;
+}
+
+.caseContext {
+  color: var(--ref-text-faint);
+  font-size: var(--text-sm);
+}
+
+.caseFinding {
+  color: var(--ref-text);
+  line-height: 1.5;
+}
+
+.caseRow {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.caseLabel {
+  color: var(--ref-text-faint);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.caseText {
+  color: var(--ref-text-muted);
+  font-size: var(--text-sm);
+  line-height: 1.45;
+}
+
+/* ── CTA ─────────────────────────────────────────────────────────────────────── */
+.ctaTitle {
+  color: var(--ref-text);
+  font-size: clamp(1.5rem, 5.5vw, var(--text-2xl));
+  margin-bottom: 1rem;
+  overflow-wrap: break-word;
+  text-align: center;
+}
+
+.ctaText {
+  color: var(--ref-text-muted);
+  font-size: var(--text-lg);
+  line-height: 1.55;
+  margin-bottom: 2rem;
+  max-width: 60ch;
+  margin-inline: auto;
+  text-align: center;
+}
+
+.ctaButton {
+  display: block;
+  width: fit-content;
+  margin-inline: auto;
+  background: var(--color-accent-contrast);
+  color: var(--color-bg-dark);
+  font-weight: 600;
+  padding: 0.85rem 1.75rem;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+.ctaButton:hover {
+  transform: translateY(-2px);
+  opacity: 0.92;
+}
+
+.ctaButton:focus-visible {
+  outline: 2px solid var(--ref-focus);
+  outline-offset: 3px;
+}

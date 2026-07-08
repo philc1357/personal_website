@@ -77,12 +77,6 @@
   50% { transform: translateY(6px); opacity: 1; }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .scrollHintIcon {
-    animation: none;
-  }
-}
-
 /* ── Gemeinsame Sektions-Struktur ───────────────────────────────────────────── */
 .facts {
   position: relative;
@@ -267,7 +261,7 @@
   color: var(--sec-focus);
   background: color-mix(in srgb, var(--sec-focus) 14%, transparent);
   border: 1px solid color-mix(in srgb, var(--sec-focus) 40%, transparent);
-  border-radius: 999px;
+  border-radius: var(--radius-md);
   padding: 0.1rem 0.6rem;
   white-space: nowrap;
 }

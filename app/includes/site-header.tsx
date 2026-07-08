@@ -5,6 +5,7 @@ import Link from "next/link";
 import { AnimatePresence, motion } from "motion/react";
 import {
   Code2,
+  FileText,
   Home,
   Lock,
   Mail,
@@ -42,6 +43,7 @@ const MENU_ITEMS: MenuItem[] = [
   { label: "Home", icon: Home, href: "/" },
   { label: "Webentwicklung", icon: Code2, href: "/webentwicklung" },
   { label: "IT-Sicherheitsanalyse", icon: ShieldCheck, href: "/security" },
+  { label: "Referenzen", icon: FileText, href: "/referenzen" },
   { label: "Kontakt", icon: Mail, href: "/kontakt" },
   { label: "Impressum", icon: Scale, href: "/impressum" },
   { label: "Datenschutz", icon: Lock, href: "/datenschutz" },

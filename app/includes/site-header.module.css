@@ -76,12 +76,3 @@
   width: 1.25rem;
   height: 1.25rem;
 }
-
-/* Reduced-Motion: Feinschliff – der Blur-Filter bleibt, aber der Kreis wird
-   ohne Übergänge geschaltet. Die Framer-Animationen werden in der Komponente
-   selbst reduziert. */
-@media (prefers-reduced-motion: reduce) {
-  .circle {
-    transition: none;
-  }
-}

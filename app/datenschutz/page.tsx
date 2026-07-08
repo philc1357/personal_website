@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { DatenschutzView } from "@/components/datenschutz/datenschutz-view";
 
 export const metadata: Metadata = {
   title: "Datenschutzerklärung",
@@ -12,10 +13,5 @@ export const metadata: Metadata = {
 // muss vom Betreiber noch eingesetzt werden.
 // ─────────────────────────────────────────────────────────────────────────────
 export default function DatenschutzPage() {
-  return (
-    <main>
-      <h1>Datenschutzerklärung</h1>
-      <p>Inhalt in Vorbereitung.</p>
-    </main>
-  );
+  return <DatenschutzView />;
 }

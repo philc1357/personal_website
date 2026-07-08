@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { WebentwicklungView } from "@/components/webentwicklung/webentwicklung-view";
 
 export const metadata: Metadata = {
   title: "Webentwicklung",
@@ -6,5 +7,5 @@ export const metadata: Metadata = {
 };
 
 export default function WebentwicklungPage() {
-  return null;
+  return <WebentwicklungView />;
 }

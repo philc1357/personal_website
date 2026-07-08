@@ -235,6 +235,11 @@ export function SecurityFacts() {
                     <Link className={styles.ctaButton} href="/kontakt">
                         Sicherheitsanalyse anfragen
                     </Link>
+                    <p className={styles.sourceNote}>
+                        Einen anonymisierten Einblick in typische Funde aus bisherigen
+                        Prüfungen gibt es unter{" "}
+                        <Link href="/referenzen">Referenzen</Link>.
+                    </p>
                 </div>
             </section>
         </div>

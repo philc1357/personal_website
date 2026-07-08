@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ImpressumView } from "@/components/impressum/impressum-view";
 
 export const metadata: Metadata = {
   title: "Impressum",
@@ -12,10 +13,5 @@ export const metadata: Metadata = {
 // müssen vom Betreiber noch eingesetzt werden.
 // ─────────────────────────────────────────────────────────────────────────────
 export default function ImpressumPage() {
-  return (
-    <main>
-      <h1>Impressum</h1>
-      <p>Inhalt in Vorbereitung.</p>
-    </main>
-  );
+  return <ImpressumView />;
 }
