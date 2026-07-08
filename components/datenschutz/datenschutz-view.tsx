@@ -1,6 +1,7 @@
 "use client";
 
 import { AnimatedGridPattern } from "@/components/ui/animated-grid-pattern";
+import { Card } from "@/components/ui/card";
 import styles from "./datenschutz.module.css";
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -22,10 +23,10 @@ export function DatenschutzView() {
 
       {/* 2) Zentrierte Karte */}
       <main className={`${styles.main} relative z-10 flex min-h-screen w-full flex-col items-center justify-center px-4 py-24`}>
-        <div className={styles.card}>
+        <Card className={styles.card} contentClassName={styles.cardContent}>
           <h1 className={styles.heading}>Datenschutzerklärung</h1>
           <p className={styles.lead}>Inhalt in Vorbereitung.</p>
-        </div>
+        </Card>
       </main>
     </div>
   );

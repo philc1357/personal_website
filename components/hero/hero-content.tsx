@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { GlowEffect } from "@/components/ui/glow-effect";
 import { cn } from "@/lib/utils";
 import { TypewriterLoop } from "./typewriter-loop";
 import styles from "./hero-content.module.css";
@@ -18,12 +19,18 @@ export function HeroContent() {
         />
       </p>
       <div className="flex flex-wrap items-center justify-center gap-4">
-        <Button asChild variant="default" size="lg">
-          <Link href="/webentwicklung">Webentwicklung</Link>
-        </Button>
-        <Button asChild variant="outline" size="lg">
-          <Link href="/security">IT-Sicherheitsanalyse</Link>
-        </Button>
+        <div className="relative">
+          <GlowEffect mode="colorShift" blur="soft" duration={6} scale={0.9} />
+          <Button asChild variant="default" size="lg" className="relative z-10">
+            <Link href="/webentwicklung">Webentwicklung</Link>
+          </Button>
+        </div>
+        <div className="relative">
+          <GlowEffect mode="colorShift" blur="soft" duration={6} scale={0.9} />
+          <Button asChild variant="outline" size="lg" className="relative z-10">
+            <Link href="/security">IT-Sicherheitsanalyse</Link>
+          </Button>
+        </div>
       </div>
     </div>
   );

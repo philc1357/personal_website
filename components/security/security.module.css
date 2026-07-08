@@ -11,10 +11,10 @@
   --sec-text-muted: rgba(255, 255, 255, 0.68);
   --sec-text-faint: rgba(255, 255, 255, 0.42);
   --sec-danger: #ef4444; /* Warnfarbe für Risiko-Kennzahlen/Balken */
-  --sec-focus: #38bdf8; /* Akzent im Ton der Beams (Cyan) – „Mein Schwerpunkt“ */
-  --sec-surface: rgba(255, 255, 255, 0.04);
-  --sec-surface-strong: rgba(255, 255, 255, 0.06);
-  --sec-border: rgba(255, 255, 255, 0.1);
+  --sec-focus: var(--card-glow); /* Akzent im Ton der Beams (Cyan) – „Mein Schwerpunkt“ */
+  --sec-surface: var(--card-surface);
+  --sec-surface-strong: var(--card-surface-strong);
+  --sec-border: var(--card-border);
 
   position: relative;
   background: var(--color-bg-dark);
@@ -132,9 +132,6 @@
 }
 
 .statTile {
-  background: var(--sec-surface);
-  border: 1px solid var(--sec-border);
-  border-radius: var(--radius-lg);
   padding: 1.75rem;
 }
 
@@ -214,15 +211,14 @@
   display: flex;
   gap: 1rem;
   padding: 1.25rem;
-  background: var(--sec-surface);
-  border: 1px solid var(--sec-border);
-  border-radius: var(--radius-md);
 }
 
-/* Hervorgehobene Karten: die Schwerpunkte im Beams-Cyan akzentuiert */
+/* Hervorgehobene Karten: die Schwerpunkte im Beams-Cyan akzentuiert. Setzt die
+   Card-Tokens lokal um (kaskadieren in die Glow-/Glasflächen-Ebenen der
+   components/ui/card.tsx). */
 .owaspCardFocus {
-  border-color: color-mix(in srgb, var(--sec-focus) 55%, transparent);
-  background: color-mix(in srgb, var(--sec-focus) 8%, var(--sec-surface));
+  --card-border: color-mix(in srgb, var(--sec-focus) 55%, transparent);
+  --card-surface: color-mix(in srgb, var(--sec-focus) 8%, var(--sec-surface));
 }
 
 .owaspRank {
@@ -278,9 +274,6 @@
 }
 
 .whyCard {
-  background: var(--sec-surface);
-  border: 1px solid var(--sec-border);
-  border-radius: var(--radius-lg);
   padding: 1.75rem;
 }
 

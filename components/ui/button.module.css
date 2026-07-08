@@ -21,7 +21,10 @@
 }
 
 .variantOutline {
-  background: transparent;
+  /* Deckender Hintergrund statt transparent, damit ein dahinterliegender
+     Glow-Effekt (components/ui/glow-effect.tsx) nur am Rand sichtbar bleibt
+     und nicht durch die Buttonfläche durchscheint. */
+  background: var(--color-bg-dark);
   color: var(--color-accent-contrast);
   border: 1px solid var(--color-accent-contrast);
 }

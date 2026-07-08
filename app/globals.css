@@ -65,6 +65,17 @@
   --color-glass-hover: rgba(255, 255, 255, 0.98);
   --color-glass-border: rgba(255, 255, 255, 0.6);
   --color-glass-border-hover: rgba(255, 255, 255, 0.85);
+
+  /* Karten (components/ui/card.tsx) – dunkle Glasfläche mit Gradient-Glow-Rand.
+     Single Source of Truth für alle Karten der Website (Fallstudien-, Stat-,
+     OWASP-, Grund-Karten); ersetzt die früher pro Seite duplizierten
+     --sec-surface/--ref-surface/--w-surface/… Tokens. */
+  --card-surface: rgba(255, 255, 255, 0.04);
+  --card-surface-strong: rgba(255, 255, 255, 0.06);
+  --card-border: rgba(255, 255, 255, 0.1);
+  --card-glow: #38bdf8;
+  --card-glow-soft: color-mix(in srgb, var(--card-glow) 35%, transparent);
+  --card-glow-light: #7dd3fc;
 }
 
 /* Grund-Reset / Basis-Anmutung */

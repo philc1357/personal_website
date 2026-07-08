@@ -7,8 +7,6 @@
 .view {
   --w-text: var(--color-accent-contrast);
   --w-text-muted: rgba(255, 255, 255, 0.68);
-  --w-surface: rgba(255, 255, 255, 0.04);
-  --w-border: rgba(255, 255, 255, 0.1);
 
   position: relative;
   min-height: 100vh;
@@ -47,12 +45,10 @@
 .card {
   width: 100%;
   max-width: 32rem;
-  background: var(--w-surface);
-  border: 1px solid var(--w-border);
-  border-radius: var(--radius-lg);
+}
+
+.cardContent {
   padding: clamp(1.5rem, 4vw, 2.5rem);
-  box-shadow: var(--shadow-md);
-  backdrop-filter: blur(8px);
   text-align: center;
 }
 

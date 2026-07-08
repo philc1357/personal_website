@@ -8,10 +8,7 @@
   --ref-text: var(--color-accent-contrast);
   --ref-text-muted: rgba(255, 255, 255, 0.68);
   --ref-text-faint: rgba(255, 255, 255, 0.42);
-  --ref-focus: #38bdf8;
-  --ref-surface: rgba(255, 255, 255, 0.04);
-  --ref-surface-strong: rgba(255, 255, 255, 0.06);
-  --ref-border: rgba(255, 255, 255, 0.1);
+  --ref-focus: var(--card-glow);
 
   position: relative;
   background: var(--color-bg-dark);
@@ -126,9 +123,6 @@
 }
 
 .caseCard {
-  background: var(--ref-surface);
-  border: 1px solid var(--ref-border);
-  border-radius: var(--radius-lg);
   padding: 1.75rem;
   display: flex;
   flex-direction: column;

@@ -5,6 +5,7 @@ import { CheckCircle2 } from "lucide-react";
 
 import { AnimatedGridPattern } from "@/components/ui/animated-grid-pattern";
 import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -103,7 +104,7 @@ export function KontaktView() {
           "relative z-10 flex min-h-screen w-full flex-col items-center justify-center px-4 py-24",
         )}
       >
-        <div className={styles.card}>
+        <Card className={styles.card} contentClassName={styles.cardContent}>
           <h1 className={styles.heading}>Kontakt</h1>
           <p className={styles.lead}>
             Schreiben Sie mir – ob Webentwicklung oder IT-Sicherheitsanalyse.
@@ -219,7 +220,7 @@ export function KontaktView() {
             Hinweis: Dieses Formular versendet keine Daten. Ihre Anfrage
             erreicht mich direkt per E-Mail.
           </p>
-        </div>
+        </Card>
       </main>
     </div>
   );

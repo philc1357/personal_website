@@ -1,0 +1,61 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   Card – dunkle Glasfläche mit Cyan-Gradient-Glow-Rand (angelehnt an
+   docs/card.html, Farben/Radius/Schatten aus den Design-Tokens statt
+   Tailwind-Utilities). Aufbau in drei übereinanderliegenden Ebenen:
+     1. .glow    – weich geblurrter Gradient, füllt die ganze Fläche
+     2. .surface – 1px kleiner als die Karte, verdeckt den Glow bis auf einen
+                   dünnen Rand → sichtbarer Gradient-Glow-Ring
+     3. .content – eigentlicher Karteninhalt (normaler Fluss, bestimmt Höhe)
+   ───────────────────────────────────────────────────────────────────────────── */
+
+.card {
+  position: relative;
+  border-radius: var(--radius-lg);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 12px 30px -8px color-mix(in srgb, var(--card-glow) 25%, transparent);
+}
+
+.glow {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    135deg,
+    var(--card-glow) 0%,
+    var(--card-glow-soft) 50%,
+    var(--card-glow) 100%
+  );
+  filter: blur(6px);
+  opacity: 0.18;
+  transition: opacity 0.25s ease;
+}
+
+.card:hover .glow {
+  opacity: 0.32;
+}
+
+.surface {
+  position: absolute;
+  inset: 1px;
+  z-index: 1;
+  border-radius: calc(var(--radius-lg) - 1px);
+  background: var(--card-surface);
+  border: 1px solid var(--card-border);
+  backdrop-filter: blur(8px);
+  transition: border-color 0.25s ease;
+}
+
+.card:hover .surface {
+  border-color: var(--card-glow-soft);
+}
+
+.content {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+}

@@ -9,9 +9,7 @@
   --k-text: var(--color-accent-contrast);
   --k-text-muted: rgba(255, 255, 255, 0.68);
   --k-text-faint: rgba(255, 255, 255, 0.42);
-  --k-surface: rgba(255, 255, 255, 0.04);
-  --k-border: rgba(255, 255, 255, 0.1);
-  --k-focus: #38bdf8; /* Cyan-Akzent (konsistent mit der Security-Seite) */
+  --k-focus: var(--card-glow); /* Cyan-Akzent (konsistent mit der Security-Seite) */
   --k-danger: #ef4444;
 
   /* Feld-Token für die UI-Primitive (input/textarea/label) */
@@ -60,12 +58,10 @@
 .card {
   width: 100%;
   max-width: 32rem;
-  background: var(--k-surface);
-  border: 1px solid var(--k-border);
-  border-radius: var(--radius-lg);
+}
+
+.cardContent {
   padding: clamp(1.5rem, 4vw, 2.5rem);
-  box-shadow: var(--shadow-md);
-  backdrop-filter: blur(8px);
 }
 
 .heading {

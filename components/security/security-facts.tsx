@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import styles from "./security.module.css";
 
@@ -97,11 +98,11 @@ export function SecurityFacts() {
                     </p>
                     <div className={styles.statGrid}>
                         {keyStats.map((s) => (
-                            <div key={s.source} className={styles.statTile} data-cursor-card>
+                            <Card key={s.source} contentClassName={styles.statTile} data-cursor-card>
                                 <div className={styles.statValue}>{s.value}</div>
                                 <div className={styles.statText}>{s.text}</div>
                                 <div className={styles.statSource}>Quelle: {s.source}</div>
-                            </div>
+                            </Card>
                         ))}
                     </div>
                 </div>
@@ -172,12 +173,10 @@ export function SecurityFacts() {
                     </p>
                     <div className={styles.owaspGrid}>
                         {owaspTop10.map((o) => (
-                            <div
+                            <Card
                                 key={o.rank}
-                                className={cn(
-                                    styles.owaspCard,
-                                    o.focus && styles.owaspCardFocus
-                                )}
+                                className={cn(o.focus && styles.owaspCardFocus)}
+                                contentClassName={styles.owaspCard}
                                 data-cursor-card
                             >
                                 <span className={styles.owaspRank}>{o.rank}</span>
@@ -192,7 +191,7 @@ export function SecurityFacts() {
                                     </div>
                                     <div className={styles.owaspDesc}>{o.desc}</div>
                                 </div>
-                            </div>
+                            </Card>
                         ))}
                     </div>
                     <p className={styles.sourceNote}>Quelle: OWASP Top&nbsp;10 (2021).</p>
@@ -209,10 +208,10 @@ export function SecurityFacts() {
                     </h2>
                     <div className={styles.whyGrid}>
                         {whyVulnerable.map((w) => (
-                            <div key={w.title} className={styles.whyCard} data-cursor-card>
+                            <Card key={w.title} contentClassName={styles.whyCard} data-cursor-card>
                                 <h3 className={styles.whyTitle}>{w.title}</h3>
                                 <p className={styles.whyText}>{w.text}</p>
-                            </div>
+                            </Card>
                         ))}
                     </div>
                 </div>

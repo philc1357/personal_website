@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Card } from "@/components/ui/card";
 import styles from "./referenzen.module.css";
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -67,7 +68,7 @@ export function ReferenzenContent() {
                     </p>
                     <div className={styles.caseGrid}>
                         {caseStudies.map((c) => (
-                            <div key={c.category} className={styles.caseCard} data-cursor-card>
+                            <Card key={c.category} contentClassName={styles.caseCard} data-cursor-card>
                                 <span className={styles.caseCategory}>{c.category}</span>
                                 <div className={styles.caseContext}>{c.context}</div>
                                 <p className={styles.caseFinding}>{c.finding}</p>
@@ -79,7 +80,7 @@ export function ReferenzenContent() {
                                     <span className={styles.caseLabel}>Behebung</span>
                                     <p className={styles.caseText}>{c.remediation}</p>
                                 </div>
-                            </div>
+                            </Card>
                         ))}
                     </div>
                     <p className={styles.sourceNote}>

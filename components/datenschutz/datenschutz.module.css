@@ -7,9 +7,6 @@
 .view {
   --d-text: var(--color-accent-contrast);
   --d-text-muted: rgba(255, 255, 255, 0.68);
-  --d-surface: rgba(255, 255, 255, 0.04);
-  --d-border: rgba(255, 255, 255, 0.1);
-
   position: relative;
   min-height: 100vh;
   background: var(--color-bg-dark);
@@ -47,12 +44,10 @@
 .card {
   width: 100%;
   max-width: 32rem;
-  background: var(--d-surface);
-  border: 1px solid var(--d-border);
-  border-radius: var(--radius-lg);
+}
+
+.cardContent {
   padding: clamp(1.5rem, 4vw, 2.5rem);
-  box-shadow: var(--shadow-md);
-  backdrop-filter: blur(8px);
   text-align: center;
 }
 

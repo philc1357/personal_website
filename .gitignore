@@ -2,6 +2,7 @@
 /node_modules
 /.pnp
 .pnp.*
+/.claude
 
 # Next.js
 /.next/
@@ -12,7 +13,7 @@ next-env.d.ts
 /build
 .DS_Store
 *.pem
-docs/*
+/docs
 CLAUDE.md
 
 # Debug logs
