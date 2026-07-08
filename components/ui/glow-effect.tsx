@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { motion, type Transition } from "motion/react";
+import { motion, type Transition, type TargetAndTransition } from "motion/react";
 
 import { cn } from "@/lib/utils";
 
@@ -84,7 +84,7 @@ export function GlowEffect({
     ease: "linear",
   };
 
-  const animations: Record<NonNullable<GlowEffectProps["mode"]>, object> = {
+  const animations: Record<NonNullable<GlowEffectProps["mode"]>, TargetAndTransition> = {
     rotate: {
       background: [
         `conic-gradient(from 0deg at 50% 50%, ${colors.join(", ")})`,
