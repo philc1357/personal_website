@@ -152,24 +152,72 @@ export function DarkVeil({
 
         const start = performance.now();
         let frame = 0;
+        let lastRenderTime = 0;
+        const targetFrameMs = 1000 / 30; // ~30 FPS-Deckel
 
-        const loop = () => {
-            program.uniforms.uTime.value =
-                ((performance.now() - start) / 1000) * speed;
-            program.uniforms.uHueShift.value = hueShift;
-            program.uniforms.uNoise.value = noiseIntensity;
-            program.uniforms.uScan.value = scanlineIntensity;
-            program.uniforms.uScanFreq.value = scanlineFrequency;
-            program.uniforms.uWarp.value = warpAmount;
-            renderer.render({ scene: mesh });
-            frame = requestAnimationFrame(loop);
+        // ── Sichtbarkeits-Steuerung ────────────────────────────────────────────
+        // Läuft die Render-Loop nur, wenn der Tab aktiv UND der Canvas im
+        // Viewport sichtbar ist. Kein prefers-reduced-motion-Bezug (die
+        // Animation läuft laut Projektregel bei aktiver Sichtbarkeit immer voll)
+        // – reine Laufzeit-Optimierung gegen unnötige CPU/GPU-Last.
+        let isTabVisible = !document.hidden;
+        let isInViewport = true;
+        let running = false;
+
+        const renderFrame = (time: number) => {
+            if (time - lastRenderTime >= targetFrameMs) {
+                lastRenderTime = time;
+                program.uniforms.uTime.value =
+                    ((performance.now() - start) / 1000) * speed;
+                program.uniforms.uHueShift.value = hueShift;
+                program.uniforms.uNoise.value = noiseIntensity;
+                program.uniforms.uScan.value = scanlineIntensity;
+                program.uniforms.uScanFreq.value = scanlineFrequency;
+                program.uniforms.uWarp.value = warpAmount;
+                renderer.render({ scene: mesh });
+            }
+            frame = requestAnimationFrame(renderFrame);
         };
 
-        loop();
+        const startLoop = () => {
+            if (running) return;
+            running = true;
+            frame = requestAnimationFrame(renderFrame);
+        };
+
+        const stopLoop = () => {
+            if (!running) return;
+            running = false;
+            cancelAnimationFrame(frame);
+        };
+
+        const syncLoop = () => {
+            if (isTabVisible && isInViewport) startLoop();
+            else stopLoop();
+        };
+
+        const onVisibilityChange = () => {
+            isTabVisible = !document.hidden;
+            syncLoop();
+        };
+        document.addEventListener("visibilitychange", onVisibilityChange);
+
+        const intersectionObserver = new IntersectionObserver(
+            ([entry]) => {
+                isInViewport = entry.isIntersecting;
+                syncLoop();
+            },
+            { threshold: 0 }
+        );
+        intersectionObserver.observe(parent);
+
+        syncLoop();
 
         return () => {
-            cancelAnimationFrame(frame);
+            stopLoop();
             window.removeEventListener("resize", resize);
+            document.removeEventListener("visibilitychange", onVisibilityChange);
+            intersectionObserver.disconnect();
         };
     }, [
         hueShift,
