@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Bug, Crosshair, Database, FolderSearch, Radar, ScanLine, Search } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import styles from "./security.module.css";
@@ -71,6 +72,17 @@ const owaspTop10 = [
     { rank: "A08", title: "Manipulierte Daten & Updates", desc: "Software-Updates oder Daten werden unbemerkt verändert.", focus: false },
     { rank: "A09", title: "Fehlende Überwachung", desc: "Angriffe bleiben unentdeckt, weil nichts protokolliert wird.", focus: true },
     { rank: "A10", title: "Server-seitige Anfrage-Fälschung (SSRF)", desc: "Der Server wird missbraucht, um interne Systeme anzugreifen.", focus: false },
+];
+
+// Werkzeuge, die ich bei einer Sicherheitsanalyse einsetze.
+const securityTools = [
+    { name: "nmap", icon: Radar },
+    { name: "Burp Suite", icon: Bug },
+    { name: "WPScan", icon: Search },
+    { name: "Gobuster", icon: FolderSearch },
+    { name: "SQLmap", icon: Database },
+    { name: "Metasploit", icon: Crosshair },
+    { name: "Nikto", icon: ScanLine },
 ];
 
 // Warum Websites so oft angreifbar sind – Klartext für Laien.
@@ -195,6 +207,31 @@ export function SecurityFacts() {
                         ))}
                     </div>
                     <p className={styles.sourceNote}>Quelle: OWASP Top&nbsp;10 (2021).</p>
+                </div>
+            </section>
+
+            {/* ===================================================================
+                Meine Tools – Werkzeuge, die bei einer Sicherheitsanalyse
+                zum Einsatz kommen.
+            ==================================================================== */}
+            <section className={styles.section}>
+                <div className={styles.container}>
+                    <h2 className={styles.sectionTitle}>Meine Tools</h2>
+                    <p className={styles.sectionLead}>
+                        Eine Auswahl der Werkzeuge, mit denen ich Websites und Netzwerke
+                        prüfe.
+                    </p>
+                    <ul className={styles.techList}>
+                        {securityTools.map((tool) => {
+                            const Icon = tool.icon;
+                            return (
+                                <li key={tool.name} className={styles.techBadge}>
+                                    <Icon className={styles.techIcon} aria-hidden="true" />
+                                    {tool.name}
+                                </li>
+                            );
+                        })}
+                    </ul>
                 </div>
             </section>
 

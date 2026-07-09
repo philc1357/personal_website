@@ -2,12 +2,12 @@ import Link from "next/link";
 import { Globe, Database, Gauge, Sparkles } from "lucide-react";
 import {
   SiPhp,
-  SiHtml5,
-  SiCss,
-  SiJavascript,
+  SiTypescript,
   SiTailwindcss,
   SiLaravel,
   SiReact,
+  SiMysql,
+  SiGit,
 } from "react-icons/si";
 import { Card } from "@/components/ui/card";
 import styles from "./webentwicklung.module.css";
@@ -70,13 +70,13 @@ const services = [
 // Logos in offiziellen Markenfarben (nominativer Fair Use zur reinen
 // Technologie-Kennzeichnung), Icons aus react-icons/si, lokal gebündelt.
 const techStack = [
-  { name: "PHP", icon: SiPhp, color: "#777BB4" },
-  { name: "HTML", icon: SiHtml5, color: "#E34F26" },
-  { name: "CSS", icon: SiCss, color: "#1572B6" },
-  { name: "JavaScript", icon: SiJavascript, color: "#F7DF1E" },
-  { name: "Tailwind CSS", icon: SiTailwindcss, color: "#06B6D4" },
-  { name: "Laravel", icon: SiLaravel, color: "#FF2D20" },
+  { name: "TypeScript", icon: SiTypescript, color: "#3178C6" },
   { name: "React", icon: SiReact, color: "#61DAFB" },
+  { name: "Tailwind CSS", icon: SiTailwindcss, color: "#06B6D4" },
+  { name: "PHP", icon: SiPhp, color: "#777BB4" },
+  { name: "Laravel", icon: SiLaravel, color: "#FF2D20" },
+  { name: "MySQL", icon: SiMysql, color: "#4479A1" },
+  { name: "Git", icon: SiGit, color: "#F05032" },
 ];
 
 export function WebentwicklungFacts() {

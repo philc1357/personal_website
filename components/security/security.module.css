@@ -124,6 +124,33 @@
   margin-top: 2rem;
 }
 
+/* ── Tools (Badge-Liste) ─────────────────────────────────────────────────────── */
+.techList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.techBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--sec-focus);
+  background: color-mix(in srgb, var(--sec-focus) 14%, transparent);
+  border: 1px solid color-mix(in srgb, var(--sec-focus) 40%, transparent);
+  border-radius: var(--radius-md);
+  padding: 0.4rem 1rem;
+}
+
+.techIcon {
+  width: 1.1em;
+  height: 1.1em;
+  flex-shrink: 0;
+}
+
 /* ── Awareness-Kennzahlen (Stat-Kacheln) ────────────────────────────────────── */
 .statGrid {
   display: grid;
